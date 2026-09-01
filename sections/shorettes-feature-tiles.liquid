@@ -194,6 +194,12 @@
     .shorettes-tiles__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    /* With an odd number of tiles the last one would sit alone in a half-width
+       track. Let it run the full width instead so the block still reads as a set. */
+    .shorettes-tiles__item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
   }
 
   @media screen and (min-width: 1100px) {
@@ -201,6 +207,12 @@
       grid-auto-flow: column;
       grid-auto-columns: minmax(0, 1fr);
       grid-template-columns: none;
+    }
+
+    /* Release the two-column orphan rule. Left in place it would pin the last tile
+       to `grid-column: 1 / -1` and push it to the front of a column-flow grid. */
+    .shorettes-tiles__item:last-child:nth-child(odd) {
+      grid-column: auto;
     }
   }
 {% endstylesheet %}
