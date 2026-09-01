@@ -357,50 +357,77 @@
   }
 }
 
-.shorettes-search-inline predictive-search-component {
-  background-color: transparent;
-}
-
-.shorettes-search-inline .predictive-search-form__header {
-  background-color: var(--shorettes-bone);
+.shorettes-search-inline__form {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background-color: #fff;
   border: 2px solid var(--shorettes-navy);
   border-radius: var(--shorettes-radius-xs);
-  padding: 0;
+  overflow: hidden;
 }
 
-.shorettes-search-inline .predictive-search-form__header-inner {
-  background-color: transparent;
+.shorettes-search-inline__form:focus-within {
+  border-color: var(--shorettes-blue);
+  outline: 2px solid var(--shorettes-blue);
+  outline-offset: 1px;
+}
+
+.shorettes-search-inline__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.75rem 1rem;
   border: 0;
-  border-radius: 0;
-}
-
-.shorettes-search-inline input.search-input {
-  padding-block: 0.8rem;
-  padding-inline: 1rem 0;
+  background: transparent;
+  color: var(--shorettes-navy);
+  font-family: var(--shorettes-ui-family);
   font-size: 0.9375rem;
+  line-height: 1.4;
+  text-overflow: ellipsis;
 }
 
-/* The magnifier sits in a solid button-like affordance on the right. */
-.shorettes-search-inline .predictive-search__icon {
-  position: static;
+.shorettes-search-inline__input::placeholder {
+  color: var(--shorettes-slate);
+  opacity: 1;
+}
+
+.shorettes-search-inline__input:focus,
+.shorettes-search-inline__input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Hide the WebKit clear affordance; it fights the square submit button. */
+.shorettes-search-inline__input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.shorettes-search-inline__submit {
   display: flex;
+  flex: none;
   align-items: center;
   justify-content: center;
-  align-self: stretch;
   width: 3.25rem;
-  flex: none;
-  margin-inline-start: auto;
+  padding: 0;
+  border: 0;
   background-color: var(--shorettes-navy);
   color: var(--shorettes-bone);
-  order: 2;
+  cursor: pointer;
+  transition: background-color var(--shorettes-transition);
 }
 
-.shorettes-search-inline .predictive-search__reset-button {
-  order: 1;
+.shorettes-search-inline__submit:hover {
+  background-color: var(--shorettes-blue);
 }
 
-.shorettes-search-inline .predictive-search-form__header:focus-within {
-  border-color: var(--shorettes-blue);
+.shorettes-search-inline__submit:focus-visible {
+  outline: 3px solid var(--shorettes-orange);
+  outline-offset: -3px;
+}
+
+.shorettes-search-inline__submit svg {
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 /* ==================================================================

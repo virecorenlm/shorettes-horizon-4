@@ -1,6 +1,13 @@
 
 
-{% if section.blocks.size > 1 %}
+{%- liquid
+  assign is_row = false
+  if section.settings.announcement_layout == 'row'
+    assign is_row = true
+  endif
+-%}
+
+{% if section.blocks.size > 1 and is_row == false %}
   <script
     src="{{ 'announcement-bar.js' | asset_url }}"
     type="module"
@@ -18,26 +25,56 @@
   {% liquid
     assign autoplay = false
     assign show_arrows = false
-    if section.blocks.size > 1
+    if section.blocks.size > 1 and is_row == false
       assign autoplay = true
       assign show_arrows = true
     endif
   %}
 
-  <announcement-bar-component
-    class="announcement-bar__slider"
-    {% if autoplay == true %}
-      autoplay="{{ section.settings.speed }}" aria-live="polite"
+  {% capture contact_markup %}
+    {% if section.settings.contact_text != blank %}
+      {% if section.settings.contact_link != blank %}
+        <a
+          class="shorettes-announcement-contact"
+          href="{{ section.settings.contact_link | escape }}"
+        >
+          {% render 'shorettes-icon', icon: 'phone', class: 'shorettes-announcement-contact__icon' %}
+          <span>{{ section.settings.contact_text }}</span>
+        </a>
+      {% else %}
+        <span class="shorettes-announcement-contact">
+          {% render 'shorettes-icon', icon: 'phone', class: 'shorettes-announcement-contact__icon' %}
+          <span>{{ section.settings.contact_text }}</span>
+        </span>
+      {% endif %}
     {% endif %}
-  >
-    {% if show_arrows %}
-      {% render 'slideshow-arrows', icon_style: 'chevron' %}
-    {% endif %}
+  {% endcapture %}
 
-    <div class="announcement-bar__slides">
-      {% content_for 'blocks' %}
+  {% if is_row %}
+    <div class="announcement-bar__row shorettes-announcement-row">
+      <div class="announcement-bar__row-messages shorettes-announcement-row__messages">
+        {% content_for 'blocks' %}
+      </div>
+      {{ contact_markup }}
     </div>
-  </announcement-bar-component>
+  {% else %}
+    <announcement-bar-component
+      class="announcement-bar__slider"
+      {% if autoplay == true %}
+        autoplay="{{ section.settings.speed }}" aria-live="polite"
+      {% endif %}
+    >
+      {% if show_arrows %}
+        {% render 'slideshow-arrows', icon_style: 'chevron' %}
+      {% endif %}
+
+      <div class="announcement-bar__slides">
+        {% content_for 'blocks' %}
+      </div>
+    </announcement-bar-component>
+
+    {{ contact_markup }}
+  {% endif %}
 </aside>
 
 {% stylesheet %}
@@ -123,6 +160,43 @@
     position: absolute;
     inset: 0;
   }
+
+  /* ---- Row layout ---- */
+
+  .announcement-bar__row {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  /* Announcements are laid out side by side, so the carousel's stacking and
+     fade-out rules must not apply to them. */
+  .announcement-bar__row-messages .announcement-bar__slide {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+
+  .announcement-bar__row-messages .announcement-bar__slide,
+  .announcement-bar__row-messages .announcement-bar__text {
+    width: auto;
+  }
+
+  /* A link inside a row announcement must not cover the whole strip. */
+  .announcement-bar__row-messages .announcement-bar__slide {
+    position: relative;
+  }
+
+  /* Keep the contact detail on the same line as the slider when both are shown. */
+  .announcement-bar:has(.shorettes-announcement-contact) {
+    align-items: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar__row-messages .announcement-bar__slide:nth-child(n + 3) {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -138,13 +212,48 @@
   },
   "settings": [
     {
+      "type": "select",
+      "id": "announcement_layout",
+      "label": "Layout",
+      "info": "Row shows every announcement side by side on desktop. Rotating fades between them.",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "Rotating"
+        },
+        {
+          "value": "row",
+          "label": "Row"
+        }
+      ],
+      "default": "carousel"
+    },
+    {
       "type": "range",
       "id": "speed",
       "label": "t:settings.scroll_speed",
       "min": 2,
       "max": 10,
       "default": 5,
-      "unit": "sec"
+      "unit": "sec",
+      "visible_if": "{{ section.settings.announcement_layout != 'row' }}"
+    },
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact text",
+      "info": "Shown at the end of the bar. Leave blank to hide."
+    },
+    {
+      "type": "text",
+      "id": "contact_link",
+      "label": "Contact link",
+      "info": "A full URL, or tel:+13156497387 to make the number tappable. Leave blank for plain text.",
+      "visible_if": "{{ section.settings.contact_text != blank }}"
     },
     {
       "type": "header",

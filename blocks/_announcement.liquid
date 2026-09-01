@@ -6,6 +6,16 @@
 {%- assign plain_text = block_settings.text | strip_newlines | strip_html | strip -%}
 {%- assign block_index = section.blocks | find_index: 'id', block.id -%}
 
+{%- liquid
+  # In carousel mode only the active slide is exposed. When the section lays the
+  # announcements out in a row they are all visible, so none may be hidden from
+  # assistive technology.
+  assign slide_hidden = 'true'
+  if block_index == 0 or section.settings.announcement_layout == 'row'
+    assign slide_hidden = 'false'
+  endif
+-%}
+
 {%- unless plain_text == '' -%}
   <slideshow-slide
     ref="slides[]"
@@ -27,7 +37,7 @@
       --line-height: 1;
     "
     {{ block.shopify_attributes }}
-    aria-hidden="{% if block_index == 0 %}false{% else %}true{% endif %}"
+    aria-hidden="{{ slide_hidden }}"
   >
     <p class="announcement-bar__text">
       {{ block.settings.text }}

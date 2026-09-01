@@ -9,9 +9,13 @@
 
   assign rows = 'top,bottom' | split: ','
   assign search_style = 'none'
+  assign drawer_search_style = 'none'
 
   if section.settings.show_search
-    assign search_style = 'modal'
+    assign search_style = section.settings.search_style | default: 'modal'
+    # The mobile drawer always uses the modal. The inline field is desktop-only,
+    # so the small-screen path must keep its own trigger.
+    assign drawer_search_style = 'modal'
   endif
 
   if section.settings.show_search
@@ -134,7 +138,7 @@
     endif
   endif
   capture search
-    render 'search', style: search_style, class: search_class, display_style: section.settings.actions_display_style
+    render 'search', style: search_style, class: search_class, display_style: section.settings.actions_display_style, placeholder: section.settings.search_placeholder
   endcapture
 
   # Skip drawer search under specific conditions:
@@ -148,7 +152,7 @@
   if section.settings.search_row == 'bottom' or search_style != 'none' and skip_drawer_search == false
     # Mobile search duplicate for when search is not in the right order for mobile layout
     capture drawer_search
-      render 'search', class: 'search-action--hidden-on-menu', style: search_style, display_style: section.settings.actions_display_style
+      render 'search', class: 'search-action--hidden-on-menu', style: drawer_search_style, display_style: section.settings.actions_display_style
     endcapture
   endif
 
@@ -1339,12 +1343,41 @@
     },
     {
       "type": "select",
+      "id": "search_style",
+      "label": "Search style",
+      "info": "Expanded shows a full search field on desktop. Small screens always use the search icon and modal.",
+      "options": [
+        {
+          "value": "modal",
+          "label": "Icon"
+        },
+        {
+          "value": "inline",
+          "label": "Expanded field"
+        }
+      ],
+      "default": "modal",
+      "visible_if": "{{ section.settings.show_search }}"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "info": "Leave blank to use the theme default.",
+      "visible_if": "{{ section.settings.show_search and section.settings.search_style == 'inline' }}"
+    },
+    {
+      "type": "select",
       "id": "search_position",
       "label": "t:settings.search_position",
       "options": [
         {
           "value": "left",
           "label": "t:options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.center"
         },
         {
           "value": "right",

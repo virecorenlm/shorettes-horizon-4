@@ -1,15 +1,21 @@
 {%- doc -%}
   Renders the search action button.
 
-  @param {string} [style] - The style of the search action.
+  @param {string} [style] - The style of the search action: 'modal' for the icon that
+    opens the search modal, 'inline' for the expanded header field, 'none' to skip.
   @param {string} [class] - Additional classes for the search action.
   @param {string} [display_style] - The display style ('icon' or 'text').
+  @param {string} [placeholder] - Placeholder text, used by the inline style only.
 
   @example
   {% render 'search', style: 'default', class: 'custom-class', display_style: 'icon' %}
 {%- enddoc -%}
 
-{% unless style == 'none' %}
+{% if style == 'inline' %}
+  {% render 'search-inline', placeholder: placeholder, class: class %}
+{% endif %}
+
+{% unless style == 'none' or style == 'inline' %}
   <search-button
     class="search-action{% if display_style == 'text' %} search-action--text{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
   >

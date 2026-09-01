@@ -1,0 +1,66 @@
+{% doc %}
+  Renders the prominent inline header search field.
+
+  This is a real GET form pointed at the search route, so it works with JavaScript
+  disabled and stays crawlable. When JavaScript is available,
+  `assets/shorettes-header-search.js` hands the query straight to Horizon's existing
+  predictive search modal, so there is only ever one `predictive-search-component`
+  on the page and no duplicated element IDs.
+
+  Rendered from `snippets/search.liquid` when the header's search style is `inline`.
+
+  @param {string} [placeholder] - Placeholder text. Falls back to the theme's own string.
+  @param {string} [class] - Extra class names for the wrapper.
+
+  @example
+  {% render 'search-inline', placeholder: section.settings.search_placeholder %}
+{% enddoc %}
+
+{%- liquid
+  assign field_id = 'ShorettesHeaderSearch'
+  assign placeholder_text = 'content.search_input_placeholder' | t
+  if placeholder != blank
+    assign placeholder_text = placeholder
+  endif
+  assign wrapper_class = 'shorettes-search-inline'
+  if class != blank
+    assign wrapper_class = wrapper_class | append: ' ' | append: class
+  endif
+-%}
+
+<script src="{{ 'shorettes-header-search.js' | asset_url }}" type="module" fetchpriority="low"></script>
+
+<shorettes-header-search class="{{ wrapper_class }}">
+  <form
+    action="{{ routes.search_url }}"
+    method="get"
+    role="search"
+    class="shorettes-search-inline__form"
+  >
+    <label for="{{ field_id }}" class="shorettes-visually-hidden">
+      {{- 'content.search_input_label' | t -}}
+    </label>
+
+    <input type="hidden" name="options[prefix]" value="last">
+
+    <input
+      id="{{ field_id }}"
+      class="shorettes-search-inline__input"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ placeholder_text | escape }}"
+      autocomplete="off"
+    >
+
+    <button
+      type="submit"
+      class="shorettes-search-inline__submit"
+      aria-label="{{ 'content.search' | t | escape }}"
+    >
+      <span class="svg-wrapper" aria-hidden="true">
+        {{- 'icon-search.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  </form>
+</shorettes-header-search>
