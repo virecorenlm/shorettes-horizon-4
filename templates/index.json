@@ -859,7 +859,7 @@
         "show_badge": true,
         "badge_text": "Local water.\nLocal knowledge.\nBetter fishing.",
         "badge_label": "St. Lawrence Country",
-        "overlay_color": "#0B171D",
+        "overlay_color": "#0A0A0A",
         "overlay_opacity": 70,
         "overlay_style": "gradient_right",
         "section_height": "large",
@@ -998,7 +998,7 @@
         "species_heading": "Shop by species",
         "category_heading": "Shop by category",
         "background_color": "#FFFFFF",
-        "text_color": "#0B171D",
+        "text_color": "#0A0A0A",
         "padding-block-start": 36,
         "padding-block-end": 28
       }
@@ -1026,7 +1026,8 @@
             "button_label": "Shop Slime Time",
             "link": "/collections/slime-time",
             "accent": "slime",
-            "overlay_opacity": 60
+            "overlay_opacity": 60,
+            "collection": "slime-time"
           },
           "blocks": {}
         },
@@ -1050,7 +1051,8 @@
             "button_label": "Shop new",
             "link": "/collections/all?sort_by=created-descending",
             "accent": "default",
-            "overlay_opacity": 55
+            "overlay_opacity": 55,
+            "collection": "frontpage"
           },
           "blocks": {}
         },
@@ -1089,20 +1091,12 @@
         "brand_1": {
           "type": "brand",
           "settings": {
-            "name": "13 Fishing",
-            "link": "/collections/vendors?q=13+Fishing"
+            "name": "Rapala",
+            "link": "/collections/vendors?q=Rapala"
           },
           "blocks": {}
         },
         "brand_2": {
-          "type": "brand",
-          "settings": {
-            "name": "6th Sense",
-            "link": "/collections/vendors?q=6th+Sense"
-          },
-          "blocks": {}
-        },
-        "brand_3": {
           "type": "brand",
           "settings": {
             "name": "Berkley",
@@ -1110,43 +1104,51 @@
           },
           "blocks": {}
         },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "name": "Livingston Lures",
+            "link": "/collections/vendors?q=Livingston+Lures"
+          },
+          "blocks": {}
+        },
         "brand_4": {
           "type": "brand",
           "settings": {
-            "name": "Bomber Lures",
-            "link": "/collections/vendors?q=Bomber+Lures"
+            "name": "Headbanger Lures",
+            "link": "/collections/vendors?q=Headbanger+Lures"
           },
           "blocks": {}
         },
         "brand_5": {
           "type": "brand",
           "settings": {
-            "name": "Chaos Tackle",
-            "link": "/collections/vendors?q=Chaos+Tackle"
+            "name": "Savage Gear",
+            "link": "/collections/vendors?q=Savage+Gear"
           },
           "blocks": {}
         },
         "brand_6": {
           "type": "brand",
           "settings": {
-            "name": "Drifter Tackle",
-            "link": "/collections/vendors?q=Drifter+Tackle"
+            "name": "Beyond Braid",
+            "link": "/collections/vendors?q=Beyond+Braid"
           },
           "blocks": {}
         },
         "brand_7": {
           "type": "brand",
           "settings": {
-            "name": "Eagle Claw",
-            "link": "/collections/vendors?q=Eagle+Claw"
+            "name": "Monster Marine Lithium",
+            "link": "/collections/vendors?q=Monster+Marine+Lithium"
           },
           "blocks": {}
         },
         "brand_8": {
           "type": "brand",
           "settings": {
-            "name": "Headbanger Lures",
-            "link": "/collections/vendors?q=Headbanger+Lures"
+            "name": "Natives Fly Fishing",
+            "link": "/collections/vendors?q=Natives+Fly+Fishing"
           },
           "blocks": {}
         }
@@ -1219,8 +1221,8 @@
       ],
       "settings": {
         "heading": "",
-        "background_color": "#0B171D",
-        "text_color": "#F4F1E8",
+        "background_color": "#0A0A0A",
+        "text_color": "#FFFFFF",
         "padding-block-start": 36,
         "padding-block-end": 36
       }

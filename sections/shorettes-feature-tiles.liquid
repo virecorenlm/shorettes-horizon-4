@@ -27,8 +27,26 @@
         {%- for block in tiles -%}
           {%- liquid
             assign overlay_alpha = block.settings.overlay_opacity | default: 55 | divided_by: 100.0
+
+            # Image priority: an uploaded image wins, then the collection's own image,
+            # then the first product image in that collection. Keeps the tile showing
+            # real store photography without anyone uploading anything.
+            assign tile_image = block.settings.image
+            if tile_image == blank and block.settings.collection != blank
+              assign tile_image = block.settings.collection.featured_image
+              if tile_image == blank
+                assign tile_image = block.settings.collection.products.first.featured_image
+              endif
+            endif
+
+            # An explicit link wins, otherwise fall back to the chosen collection.
+            assign tile_link = block.settings.link
+            if tile_link == blank and block.settings.collection != blank
+              assign tile_link = block.settings.collection.url
+            endif
+
             assign has_link = false
-            if block.settings.link != blank
+            if tile_link != blank
               assign has_link = true
             endif
           -%}
@@ -39,15 +57,15 @@
           >
             <article class="shorettes-tile">
               <div class="shorettes-tile__media shorettes-media shorettes-media--zoom">
-                {%- if block.settings.image != blank -%}
+                {%- if tile_image != blank -%}
                   {{
-                    block.settings.image
+                    tile_image
                     | image_url: width: 1400
                     | image_tag:
                       widths: '320, 480, 640, 840, 1080, 1400',
                       sizes: '(min-width: 1100px) 22vw, (min-width: 750px) 45vw, 90vw',
                       loading: 'lazy',
-                      alt: block.settings.image.alt
+                      alt: tile_image.alt
                   }}
                 {%- endif -%}
                 <span class="shorettes-tile__scrim" aria-hidden="true"></span>
@@ -69,7 +87,7 @@
                 {%- if has_link and block.settings.button_label != blank -%}
                   <a
                     class="shorettes-btn shorettes-btn--outline-light shorettes-btn--sm shorettes-tile__cta"
-                    href="{{ block.settings.link }}"
+                    href="{{ tile_link }}"
                   >
                     {{- block.settings.button_label -}}
                   </a>
@@ -84,7 +102,7 @@
               {%- if has_link -%}
                 <a
                   class="shorettes-tile__overlay-link"
-                  href="{{ block.settings.link }}"
+                  href="{{ tile_link }}"
                   tabindex="-1"
                   aria-hidden="true"
                 ></a>
@@ -122,7 +140,7 @@
     isolation: isolate;
     overflow: hidden;
     border-radius: var(--shorettes-radius-xs);
-    background-color: var(--shorettes-navy);
+    background-color: var(--shorettes-ink);
     color: #fff;
   }
 
@@ -130,7 +148,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: var(--shorettes-navy-raised);
+    background-color: var(--shorettes-ink-raised);
   }
 
   .shorettes-tile__scrim {
@@ -138,9 +156,9 @@
     inset: 0;
     background: linear-gradient(
       to top,
-      rgb(var(--shorettes-navy-rgb) / calc(var(--shorettes-tile-overlay-alpha) + 0.3)) 0%,
-      rgb(var(--shorettes-navy-rgb) / var(--shorettes-tile-overlay-alpha)) 45%,
-      rgb(var(--shorettes-navy-rgb) / calc(var(--shorettes-tile-overlay-alpha) * 0.45)) 100%
+      rgb(var(--shorettes-ink-rgb) / calc(var(--shorettes-tile-overlay-alpha) + 0.3)) 0%,
+      rgb(var(--shorettes-ink-rgb) / var(--shorettes-tile-overlay-alpha)) 45%,
+      rgb(var(--shorettes-ink-rgb) / calc(var(--shorettes-tile-overlay-alpha) * 0.45)) 100%
     );
   }
 
@@ -179,14 +197,14 @@
     text-shadow: 0 0 24px rgb(0 0 0 / 0.45);
   }
 
-  .shorettes-tiles__item--orange .shorettes-tile__heading {
-    color: var(--shorettes-orange);
+  .shorettes-tiles__item--red .shorettes-tile__heading {
+    color: var(--shorettes-red);
   }
 
-  .shorettes-tiles__item--orange .shorettes-tile__cta:hover,
+  .shorettes-tiles__item--red .shorettes-tile__cta:hover,
   .shorettes-tiles__item--slime .shorettes-tile__cta:hover {
-    background-color: var(--shorettes-orange);
-    border-color: var(--shorettes-orange);
+    background-color: var(--shorettes-red);
+    border-color: var(--shorettes-red);
     color: #fff;
   }
 
@@ -298,9 +316,16 @@
       "name": "Tile",
       "settings": [
         {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Supplies the tile image and link automatically when the fields below are left empty."
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Image",
+          "info": "Optional. Overrides the collection image."
         },
         {
           "type": "textarea",
@@ -321,7 +346,8 @@
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "Link",
+          "info": "Optional. Overrides the collection link."
         },
         {
           "type": "select",
@@ -329,7 +355,7 @@
           "label": "Accent",
           "options": [
             { "value": "default", "label": "Default" },
-            { "value": "orange", "label": "Signal orange" },
+            { "value": "red", "label": "Shorette's red" },
             { "value": "slime", "label": "Slime green" }
           ],
           "default": "default"

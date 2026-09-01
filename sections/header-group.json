@@ -45,7 +45,11 @@
           "blocks": {}
         }
       },
-      "block_order": ["announcement_JxzhCk", "announcement_family", "announcement_region"],
+      "block_order": [
+        "announcement_JxzhCk",
+        "announcement_family",
+        "announcement_region"
+      ],
       "name": "t:names.announcement_bar",
       "settings": {
         "announcement_layout": "row",
@@ -53,7 +57,7 @@
         "contact_text": "",
         "contact_link": "",
         "section_width": "page-width",
-        "background_color": "#0b171d",
+        "background_color": "#0a0a0a",
         "divider_width": 0,
         "padding-block-start": 10,
         "padding-block-end": 10
@@ -114,7 +118,7 @@
         "actions_font_size": "0.875rem",
         "actions_text_case": "none",
         "bubble_style": "custom",
-        "bubble_background_color": "#f05a28",
+        "bubble_background_color": "#d21404",
         "bubble_text_color": "#ffffff",
         "section_width": "page-width",
         "section_height": "standard",
@@ -122,15 +126,18 @@
         "divider_width": 0,
         "divider_size": "page-width",
         "border_width": 0,
-        "background_color_top": "#f4f1e8",
-        "text_color_top": "#0b171d",
-        "background_color_bottom": "#0b171d",
-        "text_color_bottom": "#f4f1e8",
+        "background_color_top": "#f8f3ed",
+        "text_color_top": "#0a0a0a",
+        "background_color_bottom": "#17191a",
+        "text_color_bottom": "#ffffff",
         "enable_transparent_header_home": false,
         "enable_transparent_header_product": false,
         "enable_transparent_header_collection": false
       }
     }
   },
-  "order": ["header_announcements_4ERErT", "header_section"]
+  "order": [
+    "header_announcements_4ERErT",
+    "header_section"
+  ]
 }

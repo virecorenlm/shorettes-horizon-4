@@ -134,7 +134,12 @@
               "blocks": {}
             }
           },
-          "block_order": ["footer_logo", "footer_tagline", "footer_contact", "footer_payment_icons"]
+          "block_order": [
+            "footer_logo",
+            "footer_tagline",
+            "footer_contact",
+            "footer_payment_icons"
+          ]
         },
         "menu_shop": {
           "type": "menu",
@@ -281,15 +286,24 @@
               "blocks": {}
             }
           },
-          "block_order": ["text_LWt8Pz", "text_f9CFLH", "email_signup_crihX7"]
+          "block_order": [
+            "text_LWt8Pz",
+            "text_f9CFLH",
+            "email_signup_crihX7"
+          ]
         }
       },
-      "block_order": ["group_brand", "menu_shop", "menu_service", "group_H6VpwJ"],
+      "block_order": [
+        "group_brand",
+        "menu_shop",
+        "menu_service",
+        "group_H6VpwJ"
+      ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
         "gap": 32,
-        "background_color": "#0b171d",
+        "background_color": "#0a0a0a",
         "padding-block-start": 48,
         "padding-block-end": 32
       }
@@ -334,17 +348,26 @@
           "blocks": {}
         }
       },
-      "block_order": ["social_links_Ew63Kq", "footer_policy_list_VCdnpa", "footer_copyright_jweRK8"],
+      "block_order": [
+        "social_links_Ew63Kq",
+        "footer_policy_list_VCdnpa",
+        "footer_copyright_jweRK8"
+      ],
       "name": "t:names.utilities",
       "settings": {
         "section_width": "page-width",
         "gap": 24,
-        "background_color": "#0b171d",
+        "background_color": "#0a0a0a",
         "divider_thickness": 1,
         "padding-block-start": 20,
-        "padding-block-end": 40
+        "padding-block-end": 40,
+        "divider_color": "#2a2d2f"
       }
     }
   },
-  "order": ["custom_liquid_6UmycE", "footer_m9NzUG", "footer_utilities_jLGE8U"]
+  "order": [
+    "custom_liquid_6UmycE",
+    "footer_m9NzUG",
+    "footer_utilities_jLGE8U"
+  ]
 }

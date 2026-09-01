@@ -107,6 +107,11 @@
             href="{{ link.url }}"
             data-skip-node-update="true"
             class="menu-list__link{% if link.active %} menu-list__link--active{% endif %}"
+            {%- comment -%}
+              Lets the brand stylesheet accent specific destinations (Deals in red,
+              Slime Time in green) without hardcoding menu labels anywhere.
+            {%- endcomment -%}
+            data-menu-handle="{{ link.handle }}"
             {% if link.current %}
               aria-current="page"
             {% endif %}

@@ -2122,7 +2122,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Brand colours used by the Shorette's hero, category, tile, brand and trust sections. Horizon's own colours are set in the Colors group above."
+        "content": "Brand colours used by the Shorette's hero, category, tile, brand and trust sections, and by the header and footer polish. Horizon's own colours are set in the Colors group above."
       },
       {
         "type": "header",
@@ -2130,38 +2130,38 @@
       },
       {
         "type": "color",
-        "id": "shorettes_color_navy",
-        "label": "Deep river navy",
-        "info": "Dark surfaces: navigation bar, footer, tile overlays.",
-        "default": "#0B171D"
+        "id": "shorettes_color_ink",
+        "label": "Black",
+        "info": "Deepest surface: header, footer, tile overlays.",
+        "default": "#0A0A0A"
       },
       {
         "type": "color",
-        "id": "shorettes_color_blue",
-        "label": "St. Lawrence blue",
-        "info": "Secondary accent: links, quiet highlights.",
-        "default": "#176B87"
+        "id": "shorettes_color_charcoal",
+        "label": "Charcoal",
+        "info": "Secondary dark surface: navigation bar, announcement bar.",
+        "default": "#17191A"
       },
       {
         "type": "color",
-        "id": "shorettes_color_bone",
-        "label": "Bone / warm white",
+        "id": "shorettes_color_paper",
+        "label": "White",
         "info": "Light surfaces and text on dark backgrounds.",
-        "default": "#F4F1E8"
+        "default": "#FFFFFF"
       },
       {
         "type": "color",
-        "id": "shorettes_color_orange",
-        "label": "Signal orange",
-        "info": "Reserve for calls to action, sale accents, cart count and active states.",
-        "default": "#F05A28"
+        "id": "shorettes_color_red",
+        "label": "Shorette's red",
+        "info": "Calls to action, sale accents, cart count, Deals, active states. Sampled from the muskie crest artwork.",
+        "default": "#D21404"
       },
       {
         "type": "color",
         "id": "shorettes_color_slate",
         "label": "Slate",
         "info": "Muted supporting text and borders.",
-        "default": "#66747A"
+        "default": "#6B7378"
       }
     ]
   }

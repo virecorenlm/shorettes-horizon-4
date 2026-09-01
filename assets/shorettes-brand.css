@@ -16,6 +16,11 @@
    1. Primitives
    ================================================================== */
 
+:root {
+  /* Slime Time keeps its own accent; it is part of the existing sub-brand. */
+  --shorettes-slime: #b6de48;
+}
+
 .shorettes-icon {
   display: block;
   width: 100%;
@@ -111,12 +116,12 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--shorettes-blue);
+  color: var(--shorettes-charcoal);
   transition: color var(--shorettes-transition);
 }
 
 .shorettes-heading-row__link:hover {
-  color: var(--shorettes-orange);
+  color: var(--shorettes-red);
 }
 
 /* ---- Buttons ---- */
@@ -144,14 +149,14 @@
 }
 
 .shorettes-btn--primary {
-  background-color: var(--shorettes-orange);
-  border-color: var(--shorettes-orange);
+  background-color: var(--shorettes-red);
+  border-color: var(--shorettes-red);
   color: #fff;
 }
 
 .shorettes-btn--primary:hover {
-  background-color: var(--shorettes-orange-hover);
-  border-color: var(--shorettes-orange-hover);
+  background-color: var(--shorettes-red-hover);
+  border-color: var(--shorettes-red-hover);
   color: #fff;
 }
 
@@ -164,18 +169,18 @@
 .shorettes-btn--outline-light:hover {
   background-color: #fff;
   border-color: #fff;
-  color: var(--shorettes-navy);
+  color: var(--shorettes-ink);
 }
 
 .shorettes-btn--outline-dark {
   background-color: transparent;
-  border-color: var(--shorettes-navy);
-  color: var(--shorettes-navy);
+  border-color: var(--shorettes-ink);
+  color: var(--shorettes-ink);
 }
 
 .shorettes-btn--outline-dark:hover {
-  background-color: var(--shorettes-navy);
-  color: var(--shorettes-bone);
+  background-color: var(--shorettes-ink);
+  color: var(--shorettes-paper);
 }
 
 .shorettes-btn--sm {
@@ -186,27 +191,27 @@
 
 .shorettes-btn:focus-visible,
 .shorettes-card-link:focus-visible {
-  outline: 3px solid var(--shorettes-orange);
+  outline: 3px solid var(--shorettes-red);
   outline-offset: 3px;
 }
 
 /* ---- Surfaces ---- */
 
 .shorettes-surface-dark {
-  background-color: var(--shorettes-navy);
-  color: var(--shorettes-bone);
+  background-color: var(--shorettes-ink);
+  color: var(--shorettes-paper);
 }
 
-.shorettes-surface-bone {
-  background-color: var(--shorettes-bone);
-  color: var(--shorettes-navy);
+.shorettes-surface-paper {
+  background-color: var(--shorettes-paper);
+  color: var(--shorettes-ink);
 }
 
 /* Media wrapper that reserves space before the image loads. */
 .shorettes-media {
   position: relative;
   overflow: hidden;
-  background-color: var(--shorettes-navy-raised);
+  background-color: var(--shorettes-ink-raised);
 }
 
 .shorettes-media > img {
@@ -279,7 +284,7 @@
 }
 
 .shorettes-announcement-contact:hover {
-  color: var(--shorettes-orange);
+  color: var(--shorettes-red);
 }
 
 .shorettes-announcement-contact__icon {
@@ -302,6 +307,13 @@
   }
 }
 
+/* Logo: cap the width so a wide horizontal wordmark cannot crowd the search field. */
+.header__row--top .header-logo img,
+.header__row--top .header-logo svg {
+  max-width: min(20rem, 34vw);
+  object-fit: contain;
+}
+
 /* The navigation row reads as a distinct dark band. */
 .header__row--bottom,
 .header__navigation-bar-row {
@@ -313,6 +325,58 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* Even, generous spacing across the nav band, and a red underline on hover. */
+@media screen and (min-width: 990px) {
+  .header__row--bottom .menu-list__list,
+  .header__navigation-bar-row .menu-list__list {
+    gap: clamp(0.75rem, 1.6vw, 1.75rem);
+  }
+}
+
+.header__row--bottom .menu-list__link,
+.header__navigation-bar-row .menu-list__link {
+  position: relative;
+  padding-block: 0.9rem;
+}
+
+.header__row--bottom .menu-list__link::after,
+.header__navigation-bar-row .menu-list__link::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0.35rem;
+  height: 2px;
+  background-color: var(--shorettes-red);
+  transform: scaleX(0);
+  transition: transform var(--shorettes-transition);
+}
+
+.header__row--bottom .menu-list__item:hover .menu-list__link::after,
+.header__row--bottom .menu-list__link:focus-visible::after,
+.header__row--bottom .menu-list__link--active::after,
+.header__navigation-bar-row .menu-list__item:hover .menu-list__link::after,
+.header__navigation-bar-row .menu-list__link:focus-visible::after,
+.header__navigation-bar-row .menu-list__link--active::after {
+  transform: scaleX(1);
+}
+
+/* Destination accents, keyed off the linklist handle rather than the label so
+   renaming a menu item in admin cannot break them. */
+.menu-list__link[data-menu-handle*='deal'] .menu-list__link-title {
+  color: var(--shorettes-red);
+}
+
+.menu-list__link[data-menu-handle*='slime'] .menu-list__link-title {
+  color: var(--shorettes-slime, #b6de48);
+}
+
+/* Keyboard focus must stay obvious on the dark band. */
+.header__row--bottom .menu-list__link:focus-visible,
+.header__navigation-bar-row .menu-list__link:focus-visible {
+  outline: 2px solid var(--shorettes-red);
+  outline-offset: 2px;
 }
 
 /* Cart count badge picks up the signal orange. */
@@ -374,14 +438,14 @@
   align-items: stretch;
   width: 100%;
   background-color: #fff;
-  border: 2px solid var(--shorettes-navy);
+  border: 2px solid var(--shorettes-ink);
   border-radius: var(--shorettes-radius-xs);
   overflow: hidden;
 }
 
 .shorettes-search-inline__form:focus-within {
-  border-color: var(--shorettes-blue);
-  outline: 2px solid var(--shorettes-blue);
+  border-color: var(--shorettes-charcoal);
+  outline: 2px solid var(--shorettes-charcoal);
   outline-offset: 1px;
 }
 
@@ -391,7 +455,7 @@
   padding: 0.75rem 1rem;
   border: 0;
   background: transparent;
-  color: var(--shorettes-navy);
+  color: var(--shorettes-ink);
   font-family: var(--shorettes-ui-family);
   font-size: 0.9375rem;
   line-height: 1.4;
@@ -422,18 +486,18 @@
   width: 3.25rem;
   padding: 0;
   border: 0;
-  background-color: var(--shorettes-navy);
-  color: var(--shorettes-bone);
+  background-color: var(--shorettes-ink);
+  color: var(--shorettes-paper);
   cursor: pointer;
   transition: background-color var(--shorettes-transition);
 }
 
 .shorettes-search-inline__submit:hover {
-  background-color: var(--shorettes-blue);
+  background-color: var(--shorettes-charcoal);
 }
 
 .shorettes-search-inline__submit:focus-visible {
-  outline: 3px solid var(--shorettes-orange);
+  outline: 3px solid var(--shorettes-red);
   outline-offset: -3px;
 }
 
@@ -457,7 +521,7 @@
 }
 
 .menu-list__link--active {
-  color: var(--shorettes-orange);
+  color: var(--shorettes-red);
 }
 
 /* ==================================================================

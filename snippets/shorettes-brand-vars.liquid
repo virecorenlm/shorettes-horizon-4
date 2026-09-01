@@ -1,6 +1,9 @@
 {% doc %}
   Emits the Shorette's brand design tokens as CSS custom properties.
 
+  Palette is black / charcoal / red / white. The red default is sampled from the
+  Shorette's muskie crest artwork so the interface and the logo agree.
+
   Every value is sourced from theme settings (Theme settings > Shorette's brand) so the
   palette stays editable in the theme editor. Falls back to the brand defaults when a
   setting has never been saved.
@@ -9,24 +12,24 @@
 {% enddoc %}
 
 {% liquid
-  assign navy = settings.shorettes_color_navy | default: '#0B171D'
-  assign blue = settings.shorettes_color_blue | default: '#176B87'
-  assign bone = settings.shorettes_color_bone | default: '#F4F1E8'
-  assign orange = settings.shorettes_color_orange | default: '#F05A28'
-  assign slate = settings.shorettes_color_slate | default: '#66747A'
+  assign ink = settings.shorettes_color_ink | default: '#0A0A0A'
+  assign charcoal = settings.shorettes_color_charcoal | default: '#17191A'
+  assign paper = settings.shorettes_color_paper | default: '#FFFFFF'
+  assign red = settings.shorettes_color_red | default: '#D21404'
+  assign slate = settings.shorettes_color_slate | default: '#6B7378'
 %}
 
-{%- capture navy_rgb -%}
-  {{ navy | color_extract: 'red' }} {{ navy | color_extract: 'green' }} {{ navy | color_extract: 'blue' }}
+{%- capture ink_rgb -%}
+  {{ ink | color_extract: 'red' }} {{ ink | color_extract: 'green' }} {{ ink | color_extract: 'blue' }}
 {%- endcapture -%}
-{%- capture blue_rgb -%}
-  {{ blue | color_extract: 'red' }} {{ blue | color_extract: 'green' }} {{ blue | color_extract: 'blue' }}
+{%- capture charcoal_rgb -%}
+  {{ charcoal | color_extract: 'red' }} {{ charcoal | color_extract: 'green' }} {{ charcoal | color_extract: 'blue' }}
 {%- endcapture -%}
-{%- capture bone_rgb -%}
-  {{ bone | color_extract: 'red' }} {{ bone | color_extract: 'green' }} {{ bone | color_extract: 'blue' }}
+{%- capture paper_rgb -%}
+  {{ paper | color_extract: 'red' }} {{ paper | color_extract: 'green' }} {{ paper | color_extract: 'blue' }}
 {%- endcapture -%}
-{%- capture orange_rgb -%}
-  {{ orange | color_extract: 'red' }} {{ orange | color_extract: 'green' }} {{ orange | color_extract: 'blue' }}
+{%- capture red_rgb -%}
+  {{ red | color_extract: 'red' }} {{ red | color_extract: 'green' }} {{ red | color_extract: 'blue' }}
 {%- endcapture -%}
 {%- capture slate_rgb -%}
   {{ slate | color_extract: 'red' }} {{ slate | color_extract: 'green' }} {{ slate | color_extract: 'blue' }}
@@ -35,33 +38,33 @@
 {% style %}
   :root {
     /* ---- Brand palette ---- */
-    --shorettes-navy: {{ navy }};
-    --shorettes-navy-rgb: {{ navy_rgb | strip }};
-    --shorettes-blue: {{ blue }};
-    --shorettes-blue-rgb: {{ blue_rgb | strip }};
-    --shorettes-bone: {{ bone }};
-    --shorettes-bone-rgb: {{ bone_rgb | strip }};
-    --shorettes-orange: {{ orange }};
-    --shorettes-orange-rgb: {{ orange_rgb | strip }};
+    --shorettes-ink: {{ ink }};
+    --shorettes-ink-rgb: {{ ink_rgb | strip }};
+    --shorettes-charcoal: {{ charcoal }};
+    --shorettes-charcoal-rgb: {{ charcoal_rgb | strip }};
+    --shorettes-paper: {{ paper }};
+    --shorettes-paper-rgb: {{ paper_rgb | strip }};
+    --shorettes-red: {{ red }};
+    --shorettes-red-rgb: {{ red_rgb | strip }};
     --shorettes-slate: {{ slate }};
     --shorettes-slate-rgb: {{ slate_rgb | strip }};
 
     /* ---- Derived surfaces ---- */
-    --shorettes-navy-deep: {{ navy | color_darken: 3 }};
-    --shorettes-navy-raised: {{ navy | color_lighten: 6 }};
-    --shorettes-blue-dark: {{ blue | color_darken: 8 }};
-    --shorettes-orange-hover: {{ orange | color_darken: 8 }};
-    --shorettes-bone-shade: {{ bone | color_darken: 3 }};
+    --shorettes-ink-deep: {{ ink | color_darken: 2 }};
+    --shorettes-ink-raised: {{ ink | color_lighten: 8 }};
+    --shorettes-charcoal-dark: {{ charcoal | color_darken: 5 }};
+    --shorettes-red-hover: {{ red | color_darken: 8 }};
+    --shorettes-paper-shade: {{ paper | color_darken: 4 }};
 
     /* ---- Lines and separators ---- */
-    --shorettes-hairline: rgb(var(--shorettes-navy-rgb) / 0.12);
-    --shorettes-hairline-strong: rgb(var(--shorettes-navy-rgb) / 0.2);
-    --shorettes-hairline-inverse: rgb(var(--shorettes-bone-rgb) / 0.16);
+    --shorettes-hairline: rgb(var(--shorettes-ink-rgb) / 0.12);
+    --shorettes-hairline-strong: rgb(var(--shorettes-ink-rgb) / 0.2);
+    --shorettes-hairline-inverse: rgb(var(--shorettes-paper-rgb) / 0.16);
 
     /* ---- Elevation ---- */
-    --shorettes-shadow-sm: 0 1px 2px rgb(var(--shorettes-navy-rgb) / 0.08);
-    --shorettes-shadow-md: 0 6px 20px rgb(var(--shorettes-navy-rgb) / 0.1);
-    --shorettes-shadow-lg: 0 18px 48px rgb(var(--shorettes-navy-rgb) / 0.22);
+    --shorettes-shadow-sm: 0 1px 2px rgb(var(--shorettes-ink-rgb) / 0.08);
+    --shorettes-shadow-md: 0 6px 20px rgb(var(--shorettes-ink-rgb) / 0.12);
+    --shorettes-shadow-lg: 0 18px 48px rgb(var(--shorettes-ink-rgb) / 0.28);
 
     /* ---- Radii ---- */
     --shorettes-radius-xs: 2px;

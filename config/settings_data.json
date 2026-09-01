@@ -11,8 +11,8 @@
   "current": {
     "logo": "shopify://shop_images/ChatGPT_Image_Dec_20_2025_11_40_24_PM.png",
     "logo_inverse": "shopify://shop_images/ChatGPT_Image_Dec_20_2025_10_39_05_PM.png",
-    "logo_height": 88,
-    "logo_height_mobile": 44,
+    "logo_height": 72,
+    "logo_height_mobile": 40,
     "favicon": "{{ shop.brand.logo }}",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "catamaran_n4",
@@ -139,14 +139,14 @@
     },
     "color_palette": {
       "background": "#ffffff",
-      "foreground": "#0b171d",
+      "foreground": "#0a0a0a",
       "color3": "#dfdfdf",
-      "color4": "#0b171d",
-      "color5": "#176b87",
-      "color6": "#f4f1e8",
+      "color4": "#0a0a0a",
+      "color5": "#17191a",
+      "color6": "#f8f3ed",
       "color7": "#b6de48",
-      "color8": "#f05a28",
-      "color9": "#66747a"
+      "color8": "#d21404",
+      "color9": "#6b7378"
     }
   },
   "presets": {
