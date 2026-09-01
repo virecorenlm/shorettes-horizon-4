@@ -1,0 +1,387 @@
+{%- liquid
+  assign tiles = section.blocks | where: 'type', 'tile'
+  assign slime = settings.color_palette.color7 | default: '#B6DE48'
+-%}
+
+<div
+  class="shorettes-tiles"
+  style="
+    --shorettes-tiles-background: {{ section.settings.background_color | default: '#FFFFFF' }};
+    --shorettes-tiles-gap: {{ section.settings.gap | default: 12 }}px;
+    --shorettes-tiles-height: {{ section.settings.tile_height | default: 260 }}px;
+    --shorettes-tiles-padding-start: {{ section.settings['padding-block-start'] | default: 16 }}px;
+    --shorettes-tiles-padding-end: {{ section.settings['padding-block-end'] | default: 32 }}px;
+    --shorettes-slime: {{ slime }};
+  "
+  {{ section.shopify_attributes }}
+>
+  <div class="shorettes-container">
+    {%- if section.settings.heading != blank -%}
+      <div class="shorettes-heading-row">
+        <h2 class="shorettes-display shorettes-display--lg">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if tiles.size > 0 -%}
+      <ul class="shorettes-tiles__grid" role="list">
+        {%- for block in tiles -%}
+          {%- liquid
+            assign overlay_alpha = block.settings.overlay_opacity | default: 55 | divided_by: 100.0
+            assign has_link = false
+            if block.settings.link != blank
+              assign has_link = true
+            endif
+          -%}
+          <li
+            class="shorettes-tiles__item shorettes-tiles__item--{{ block.settings.accent | default: 'default' }}"
+            style="--shorettes-tile-overlay-alpha: {{ overlay_alpha }};"
+            {{ block.shopify_attributes }}
+          >
+            <article class="shorettes-tile">
+              <div class="shorettes-tile__media shorettes-media shorettes-media--zoom">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1400
+                    | image_tag:
+                      widths: '320, 480, 640, 840, 1080, 1400',
+                      sizes: '(min-width: 1100px) 22vw, (min-width: 750px) 45vw, 90vw',
+                      loading: 'lazy',
+                      alt: block.settings.image.alt
+                  }}
+                {%- endif -%}
+                <span class="shorettes-tile__scrim" aria-hidden="true"></span>
+              </div>
+
+              <div class="shorettes-tile__body">
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="shorettes-display shorettes-display--md shorettes-tile__heading">
+                    {{- block.settings.heading | escape | newline_to_br -}}
+                  </h3>
+                {%- endif -%}
+
+                {%- if block.settings.text != blank -%}
+                  <p class="shorettes-body shorettes-body--sm shorettes-tile__text">
+                    {{- block.settings.text -}}
+                  </p>
+                {%- endif -%}
+
+                {%- if has_link and block.settings.button_label != blank -%}
+                  <a
+                    class="shorettes-btn shorettes-btn--outline-light shorettes-btn--sm shorettes-tile__cta"
+                    href="{{ block.settings.link }}"
+                  >
+                    {{- block.settings.button_label -}}
+                  </a>
+                {%- endif -%}
+              </div>
+
+              {%- comment -%}
+                One full-tile link keeps the whole card clickable. It is removed from the
+                accessibility tree and the tab order because the visible CTA already
+                exposes the same destination with a real label.
+              {%- endcomment -%}
+              {%- if has_link -%}
+                <a
+                  class="shorettes-tile__overlay-link"
+                  href="{{ block.settings.link }}"
+                  tabindex="-1"
+                  aria-hidden="true"
+                ></a>
+              {%- endif -%}
+            </article>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .shorettes-tiles {
+    padding-block: var(--shorettes-tiles-padding-start) var(--shorettes-tiles-padding-end);
+    background-color: var(--shorettes-tiles-background);
+  }
+
+  .shorettes-tiles__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--shorettes-tiles-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .shorettes-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    min-height: var(--shorettes-tiles-height);
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: var(--shorettes-radius-xs);
+    background-color: var(--shorettes-navy);
+    color: #fff;
+  }
+
+  .shorettes-tile__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--shorettes-navy-raised);
+  }
+
+  .shorettes-tile__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(var(--shorettes-navy-rgb) / calc(var(--shorettes-tile-overlay-alpha) + 0.3)) 0%,
+      rgb(var(--shorettes-navy-rgb) / var(--shorettes-tile-overlay-alpha)) 45%,
+      rgb(var(--shorettes-navy-rgb) / calc(var(--shorettes-tile-overlay-alpha) * 0.45)) 100%
+    );
+  }
+
+  .shorettes-tile__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--shorettes-space-2xs);
+    padding: var(--shorettes-space-sm);
+  }
+
+  .shorettes-tile__heading {
+    text-wrap: balance;
+  }
+
+  .shorettes-tile__text {
+    max-width: 24ch;
+    color: rgb(255 255 255 / 0.88);
+  }
+
+  .shorettes-tile__cta {
+    position: relative;
+    z-index: 1;
+    margin-block-start: var(--shorettes-space-2xs);
+  }
+
+  .shorettes-tile__overlay-link {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ---- Accents ---- */
+
+  .shorettes-tiles__item--slime .shorettes-tile__heading {
+    color: var(--shorettes-slime);
+    text-shadow: 0 0 24px rgb(0 0 0 / 0.45);
+  }
+
+  .shorettes-tiles__item--orange .shorettes-tile__heading {
+    color: var(--shorettes-orange);
+  }
+
+  .shorettes-tiles__item--orange .shorettes-tile__cta:hover,
+  .shorettes-tiles__item--slime .shorettes-tile__cta:hover {
+    background-color: var(--shorettes-orange);
+    border-color: var(--shorettes-orange);
+    color: #fff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .shorettes-tiles__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 1100px) {
+    .shorettes-tiles__grid {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-template-columns: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shorette's feature tiles",
+  "tag": "section",
+  "class": "shorettes-tiles-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Tiles without a link are shown but are not clickable, so nothing points at a collection that does not exist yet."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "info": "Optional."
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "tile_height",
+      "label": "Tile height",
+      "min": 180,
+      "max": 420,
+      "step": 10,
+      "unit": "px",
+      "default": 260
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "info": "Press Enter to control where the heading breaks."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "accent",
+          "label": "Accent",
+          "options": [
+            { "value": "default", "label": "Default" },
+            { "value": "orange", "label": "Signal orange" },
+            { "value": "slime", "label": "Slime green" }
+          ],
+          "default": "default"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 55
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shorette's feature tiles",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Shorette's\noriginals",
+            "text": "Custom lures. Built by anglers for anglers.",
+            "button_label": "Shop originals"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Slime time",
+            "text": "Loud colors. Big attitude. Fish can't resist.",
+            "button_label": "Shop Slime Time",
+            "accent": "slime"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Community\ncatches",
+            "text": "Real anglers. Real fish. Real stories.",
+            "button_label": "View catches"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "New\narrivals",
+            "text": "The latest gear from the best brands.",
+            "button_label": "Shop new"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "heading": "Best\nsellers",
+            "text": "Proven winners that get it done.",
+            "button_label": "Shop best sellers"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,34 @@
+{% doc %}
+  Renders the icon-and-label pair inside a category-nav item.
+
+  Shared by the linked and unlinked branches of `sections/shorettes-category-nav.liquid`
+  so the markup is written once.
+
+  @param {object} block - The species or category block.
+  @param {string} fallback_icon - Icon name to use when the block has none selected.
+
+  @example
+  {% render 'shorettes-catnav-item', block: block, fallback_icon: 'bass' %}
+{% enddoc %}
+
+{%- assign icon_name = block.settings.icon | default: fallback_icon -%}
+
+<span class="shorettes-catnav__icon">
+  {%- if block.settings.image != blank -%}
+    {{
+      block.settings.image
+      | image_url: width: 240
+      | image_tag:
+        widths: '80, 120, 160, 240',
+        sizes: '80px',
+        loading: 'lazy',
+        alt: block.settings.image.alt
+    }}
+  {%- else -%}
+    {%- render 'shorettes-icon', icon: icon_name -%}
+  {%- endif -%}
+</span>
+
+{%- if block.settings.label != blank -%}
+  <span class="shorettes-catnav__label">{{ block.settings.label }}</span>
+{%- endif -%}

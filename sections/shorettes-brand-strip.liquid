@@ -1,0 +1,264 @@
+{%- liquid
+  assign brands = section.blocks | where: 'type', 'brand'
+-%}
+
+<div
+  class="shorettes-brands"
+  style="
+    --shorettes-brands-background: {{ section.settings.background_color | default: '#FFFFFF' }};
+    --shorettes-brands-logo-height: {{ section.settings.logo_height | default: 34 }}px;
+    --shorettes-brands-padding-start: {{ section.settings['padding-block-start'] | default: 24 }}px;
+    --shorettes-brands-padding-end: {{ section.settings['padding-block-end'] | default: 24 }}px;
+  "
+  {{ section.shopify_attributes }}
+>
+  <div class="shorettes-container shorettes-brands__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="shorettes-eyebrow shorettes-brands__title">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if brands.size > 0 -%}
+      <ul class="shorettes-brands__list" role="list">
+        {%- for block in brands -%}
+          {%- liquid
+            assign brand_name = block.settings.name
+            if brand_name == blank
+              assign brand_name = block.settings.image.alt
+            endif
+          -%}
+          <li class="shorettes-brands__item" {{ block.shopify_attributes }}>
+            {%- capture brand_content -%}
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 480
+                  | image_tag:
+                    widths: '120, 180, 240, 360, 480',
+                    sizes: '160px',
+                    class: 'shorettes-brands__logo',
+                    loading: 'lazy',
+                    alt: brand_name
+                }}
+              {%- else -%}
+                <span class="shorettes-brands__wordmark">{{ brand_name }}</span>
+              {%- endif -%}
+            {%- endcapture -%}
+
+            {%- if block.settings.link != blank -%}
+              <a class="shorettes-brands__link" href="{{ block.settings.link }}">{{ brand_content }}</a>
+            {%- else -%}
+              <span class="shorettes-brands__link shorettes-brands__link--static">{{ brand_content }}</span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.view_all_label != blank and section.settings.view_all_link != blank -%}
+      <a class="shorettes-heading-row__link shorettes-brands__view-all" href="{{ section.settings.view_all_link }}">
+        {{ section.settings.view_all_label }}
+        <span aria-hidden="true">&rsaquo;</span>
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .shorettes-brands {
+    padding-block: var(--shorettes-brands-padding-start) var(--shorettes-brands-padding-end);
+    background-color: var(--shorettes-brands-background);
+    border-block: 1px solid var(--shorettes-hairline);
+  }
+
+  .shorettes-brands__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--shorettes-space-sm) var(--shorettes-space-md);
+  }
+
+  .shorettes-brands__title {
+    flex: none;
+    color: var(--shorettes-navy);
+  }
+
+  .shorettes-brands__list {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--shorettes-space-sm) var(--shorettes-space-lg);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .shorettes-brands__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--shorettes-brands-logo-height);
+    color: var(--shorettes-navy);
+    text-decoration: none;
+  }
+
+  .shorettes-brands__logo {
+    display: block;
+    width: auto;
+    max-width: 10rem;
+    height: var(--shorettes-brands-logo-height);
+    object-fit: contain;
+    transition: opacity var(--shorettes-transition);
+  }
+
+  a.shorettes-brands__link:hover .shorettes-brands__logo {
+    opacity: 0.7;
+  }
+
+  .shorettes-brands__wordmark {
+    font-family: var(--shorettes-display-family);
+    font-size: 1.0625rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: color var(--shorettes-transition);
+  }
+
+  a.shorettes-brands__link:hover .shorettes-brands__wordmark {
+    color: var(--shorettes-orange);
+  }
+
+  a.shorettes-brands__link:focus-visible {
+    outline: 3px solid var(--shorettes-orange);
+    outline-offset: 4px;
+  }
+
+  .shorettes-brands__view-all {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--shorettes-navy);
+  }
+
+  @media screen and (max-width: 749px) {
+    .shorettes-brands__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .shorettes-brands__list {
+      justify-content: flex-start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shorette's brand strip",
+  "tag": "section",
+  "class": "shorettes-brands-wrapper",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Upload each brand logo you have permission to display. A brand with no logo falls back to its name set as a wordmark."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop top brands"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all label",
+      "default": "View all brands"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "info": "Used as the logo's alt text, and shown as a wordmark when no logo is uploaded."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Point this at the brand's collection or a filtered vendor search."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shorette's brand strip"
+    }
+  ]
+}
+{% endschema %}

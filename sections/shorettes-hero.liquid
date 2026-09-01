@@ -1,0 +1,547 @@
+{%- liquid
+  assign image_desktop = section.settings.image
+  assign image_mobile = section.settings.image_mobile | default: image_desktop
+  assign overlay = section.settings.overlay_color | default: '#0B171D'
+  assign overlay_alpha = section.settings.overlay_opacity | divided_by: 100.0
+
+  assign focal_desktop = '50% 50%'
+  if image_desktop.presentation.focal_point != blank
+    assign focal_desktop = image_desktop.presentation.focal_point
+  endif
+
+  assign focal_mobile = '50% 50%'
+  if image_mobile.presentation.focal_point != blank
+    assign focal_mobile = image_mobile.presentation.focal_point
+  endif
+
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+
+  case section.settings.section_height
+    when 'small'
+      assign height_value = 'var(--section-height-small)'
+    when 'medium'
+      assign height_value = 'var(--section-height-medium)'
+    when 'large'
+      assign height_value = 'var(--section-height-large)'
+    when 'full'
+      assign height_value = 'calc(100svh - var(--header-group-height, 0px))'
+    else
+      assign height_value = section.settings.section_height_custom | append: 'svh'
+  endcase
+
+  assign widths = '540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2560, 3000'
+-%}
+
+{%- capture overlay_layer -%}
+  {%- case section.settings.overlay_style -%}
+    {%- when 'solid' -%}
+      {{ overlay | color_modify: 'alpha', overlay_alpha }}
+    {%- when 'gradient_up' -%}
+      linear-gradient(to top,
+        {{ overlay | color_modify: 'alpha', overlay_alpha }} 0%,
+        {{ overlay | color_modify: 'alpha', overlay_alpha | times: 0.55 }} 45%,
+        {{ overlay | color_modify: 'alpha', overlay_alpha | times: 0.1 }} 100%)
+    {%- else -%}
+      linear-gradient(to right,
+        {{ overlay | color_modify: 'alpha', overlay_alpha }} 0%,
+        {{ overlay | color_modify: 'alpha', overlay_alpha | times: 0.82 }} 32%,
+        {{ overlay | color_modify: 'alpha', overlay_alpha | times: 0.3 }} 72%,
+        {{ overlay | color_modify: 'alpha', overlay_alpha | times: 0.18 }} 100%)
+  {%- endcase -%}
+{%- endcapture -%}
+
+<section
+  class="shorettes-hero"
+  style="
+    --shorettes-hero-height: {{ height_value }};
+    --shorettes-hero-overlay: {{ overlay_layer | strip | strip_newlines }};
+    --shorettes-hero-focal-desktop: {{ focal_desktop }};
+    --shorettes-hero-focal-mobile: {{ focal_mobile }};
+    --shorettes-hero-padding-start: {{ section.settings['padding-block-start'] | default: 0 }}px;
+    --shorettes-hero-padding-end: {{ section.settings['padding-block-end'] | default: 0 }}px;
+  "
+  {{ section.shopify_attributes }}
+>
+  <div class="shorettes-hero__media">
+    {%- if image_desktop != blank -%}
+      <picture>
+        {%- if image_mobile != blank and image_mobile != image_desktop -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ image_mobile | image_url: width: 1284 }} 1284w, {{ image_mobile | image_url: width: 1080 }} 1080w, {{ image_mobile | image_url: width: 900 }} 900w, {{ image_mobile | image_url: width: 720 }} 720w, {{ image_mobile | image_url: width: 540 }} 540w, {{ image_mobile | image_url: width: 420 }} 420w"
+            sizes="100vw"
+            width="{{ image_mobile.width }}"
+            height="{{ image_mobile.height }}"
+          >
+        {%- endif -%}
+        {{
+          image_desktop
+          | image_url: width: 3000
+          | image_tag:
+            widths: widths,
+            sizes: '100vw',
+            class: 'shorettes-hero__image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            decoding: 'async',
+            alt: image_desktop.alt
+        }}
+      </picture>
+    {%- else -%}
+      <div class="shorettes-hero__placeholder"></div>
+    {%- endif -%}
+    <div class="shorettes-hero__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="shorettes-hero__inner shorettes-container">
+    <div class="shorettes-hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="shorettes-eyebrow shorettes-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <{{ heading_tag }} class="shorettes-display shorettes-display--xl shorettes-hero__heading">
+          {{- section.settings.heading | escape | newline_to_br -}}
+        </{{ heading_tag }}>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="shorettes-body shorettes-hero__body">
+          {{- section.settings.body | escape | newline_to_br -}}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="shorettes-hero__actions">
+          {%- if section.settings.button_1_label != blank -%}
+            <a
+              class="shorettes-btn shorettes-btn--primary"
+              href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}"
+            >
+              {{- section.settings.button_1_label -}}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a
+              class="shorettes-btn shorettes-btn--outline-light"
+              href="{{ section.settings.button_2_link | default: routes.all_products_collection_url }}"
+            >
+              {{- section.settings.button_2_label -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_badge and section.settings.badge_text != blank -%}
+      <aside class="shorettes-hero__badge">
+        {%- if section.settings.badge_image != blank -%}
+          {{
+            section.settings.badge_image
+            | image_url: width: 640
+            | image_tag:
+              widths: '220, 320, 440, 640',
+              sizes: '(min-width: 990px) 260px, 160px',
+              class: 'shorettes-hero__badge-image',
+              loading: 'lazy',
+              alt: section.settings.badge_image.alt
+          }}
+        {%- endif -%}
+        <p class="shorettes-hero__badge-text">
+          {{- section.settings.badge_text | escape | newline_to_br -}}
+        </p>
+        {%- if section.settings.badge_label != blank -%}
+          <p class="shorettes-hero__badge-label">{{ section.settings.badge_label }}</p>
+        {%- endif -%}
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .shorettes-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: var(--shorettes-hero-height);
+    isolation: isolate;
+    background-color: var(--shorettes-navy);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .shorettes-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .shorettes-hero__media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .shorettes-hero__image,
+  .shorettes-hero__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--shorettes-hero-focal-mobile);
+  }
+
+  .shorettes-hero__placeholder {
+    background: linear-gradient(160deg, var(--shorettes-navy), var(--shorettes-blue));
+  }
+
+  .shorettes-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--shorettes-hero-overlay);
+  }
+
+  .shorettes-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shorettes-space-lg);
+    width: 100%;
+    padding-block: calc(var(--shorettes-space-xl) + var(--shorettes-hero-padding-start))
+      calc(var(--shorettes-space-xl) + var(--shorettes-hero-padding-end));
+  }
+
+  .shorettes-hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--shorettes-space-sm);
+    max-width: 34rem;
+  }
+
+  .shorettes-hero__eyebrow {
+    color: var(--shorettes-orange);
+  }
+
+  .shorettes-hero__heading {
+    text-shadow: 0 2px 24px rgb(var(--shorettes-navy-rgb) / 0.35);
+  }
+
+  .shorettes-hero__body {
+    max-width: 30rem;
+    font-size: 1.0625rem;
+    color: rgb(255 255 255 / 0.92);
+  }
+
+  .shorettes-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--shorettes-space-xs);
+    margin-block-start: var(--shorettes-space-2xs);
+  }
+
+  /* ---- Regional badge ---- */
+
+  .shorettes-hero__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--shorettes-space-2xs);
+    max-width: 20rem;
+  }
+
+  .shorettes-hero__badge-image {
+    width: 10rem;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .shorettes-hero__badge-text {
+    margin: 0;
+    font-family: var(--shorettes-display-family);
+    font-size: clamp(1rem, 1.4vw, 1.3125rem);
+    font-weight: var(--shorettes-display-weight);
+    line-height: 1.18;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .shorettes-hero__badge-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0;
+    font-family: var(--shorettes-ui-family);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .shorettes-hero__badge-label::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background-color: var(--shorettes-orange);
+  }
+
+  @media screen and (min-width: 750px) {
+    .shorettes-hero__image {
+      object-position: var(--shorettes-hero-focal-desktop);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .shorettes-hero__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--shorettes-space-2xl);
+    }
+
+    .shorettes-hero__content {
+      max-width: 38rem;
+    }
+
+    .shorettes-hero__badge {
+      align-items: flex-end;
+      text-align: right;
+      flex: none;
+    }
+
+    .shorettes-hero__badge-label {
+      flex-direction: row-reverse;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shorette's hero",
+  "tag": "section",
+  "class": "shorettes-hero-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shorette's Bait & Tackle"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Press Enter to control where the headline breaks.",
+      "default": "Built for the\nwater we fish."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading level",
+      "info": "Keep this at H2 on the home page: the header already provides the page H1.",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Text",
+      "default": "Musky, bass, walleye and everyday fishing gear from the St. Lawrence country."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Primary button label",
+      "default": "Shop baits"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Secondary button label",
+      "default": "Shop new arrivals"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Regional badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge image",
+      "info": "Optional. A regional outline or emblem shown above the badge text."
+    },
+    {
+      "type": "textarea",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Local water.\nLocal knowledge.\nBetter fishing."
+    },
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Badge label",
+      "default": "St. Lawrence Country"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop image",
+      "info": "Set the focal point on the image in Shopify Files to control the crop."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image",
+      "info": "Optional. Falls back to the desktop image."
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay colour",
+      "default": "#0B171D"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "select",
+      "id": "overlay_style",
+      "label": "Overlay style",
+      "options": [
+        {
+          "value": "gradient_right",
+          "label": "Fade to the right"
+        },
+        {
+          "value": "gradient_up",
+          "label": "Fade upward"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ],
+      "default": "gradient_right"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "full",
+          "label": "Full screen"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "range",
+      "id": "section_height_custom",
+      "label": "Custom height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70,
+      "visible_if": "{{ section.settings.section_height == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shorette's hero"
+    }
+  ]
+}
+{% endschema %}
