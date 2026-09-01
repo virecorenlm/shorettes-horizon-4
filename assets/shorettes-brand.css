@@ -342,7 +342,10 @@
   width: 100%;
 }
 
-@media screen and (min-width: 990px) {
+/* 750px is Horizon's own menu/drawer breakpoint. Matching it means the inline field
+   takes over exactly where the drawer's search icon hands off, leaving no width at
+   which neither is visible. */
+@media screen and (min-width: 750px) {
   .shorettes-search-inline {
     display: block;
     flex: 1 1 auto;
@@ -354,6 +357,15 @@
     flex: 1 1 auto;
     min-width: 0;
     max-width: 40rem;
+  }
+}
+
+/* Horizon hides `search-action--hidden-on-drawer` on touch devices, where the drawer
+   provides its own search. The inline field inherits that class from the header, so
+   it correctly steps aside there. */
+@media screen and (min-width: 750px) {
+  [data-menu-style='drawer'] .shorettes-search-inline.search-action--hidden-on-drawer {
+    display: none;
   }
 }
 

@@ -177,6 +177,7 @@
     transition: none;
   }
 
+  /* Blocks default to `width: var(--width, 100%)`, which would stack them. */
   .announcement-bar__row-messages .announcement-bar__slide,
   .announcement-bar__row-messages .announcement-bar__text {
     width: auto;
@@ -185,6 +186,7 @@
   /* A link inside a row announcement must not cover the whole strip. */
   .announcement-bar__row-messages .announcement-bar__slide {
     position: relative;
+    flex: none;
   }
 
   /* Keep the contact detail on the same line as the slider when both are shown. */

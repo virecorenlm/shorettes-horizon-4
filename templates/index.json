@@ -37,7 +37,8 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
+      },
+      "disabled": true
     },
     "1766011629720e99cd": {
       "type": "_blocks",
@@ -67,7 +68,8 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
+      },
+      "disabled": true
     },
     "17659924951d04f9a6": {
       "type": "_blocks",
@@ -97,7 +99,8 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
+      },
+      "disabled": true
     },
     "hero_jVaWmY": {
       "type": "hero",
@@ -155,7 +158,8 @@
         "reflection_opacity": 75,
         "padding-block-start": 100,
         "padding-block-end": 72
-      }
+      },
+      "disabled": true
     },
     "product_list_fa6P9H": {
       "type": "product-list",
@@ -838,16 +842,402 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
+      },
+      "disabled": true
+    },
+    "shorettes_hero": {
+      "type": "shorettes-hero",
+      "settings": {
+        "eyebrow": "Shorette's Bait & Tackle",
+        "heading": "Built for the\nwater we fish.",
+        "heading_tag": "h2",
+        "body": "Musky, bass, walleye and everyday fishing gear from the St. Lawrence country.",
+        "button_1_label": "Shop baits",
+        "button_1_link": "/collections/all",
+        "button_2_label": "Shop new arrivals",
+        "button_2_link": "/collections/all?sort_by=created-descending",
+        "show_badge": true,
+        "badge_text": "Local water.\nLocal knowledge.\nBetter fishing.",
+        "badge_label": "St. Lawrence Country",
+        "overlay_color": "#0B171D",
+        "overlay_opacity": 70,
+        "overlay_style": "gradient_right",
+        "section_height": "large",
+        "section_height_custom": 70,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "shorettes_category_nav": {
+      "type": "shorettes-category-nav",
+      "blocks": {
+        "catnav_1": {
+          "type": "species",
+          "settings": {
+            "icon": "musky",
+            "label": "Musky",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_2": {
+          "type": "species",
+          "settings": {
+            "icon": "bass",
+            "label": "Bass",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_3": {
+          "type": "species",
+          "settings": {
+            "icon": "walleye",
+            "label": "Walleye",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_4": {
+          "type": "species",
+          "settings": {
+            "icon": "pike",
+            "label": "Pike",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_5": {
+          "type": "species",
+          "settings": {
+            "icon": "panfish",
+            "label": "Panfish",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_6": {
+          "type": "species",
+          "settings": {
+            "icon": "trout",
+            "label": "Trout",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_7": {
+          "type": "category",
+          "settings": {
+            "icon": "lures",
+            "label": "Lures",
+            "link": ""
+          },
+          "blocks": {}
+        },
+        "catnav_8": {
+          "type": "category",
+          "settings": {
+            "icon": "rods-reels",
+            "label": "Rods & reels",
+            "link": "/collections/rods-reels-rod-racks"
+          },
+          "blocks": {}
+        },
+        "catnav_9": {
+          "type": "category",
+          "settings": {
+            "icon": "terminal-tackle",
+            "label": "Terminal tackle",
+            "link": "/collections/terminal-tackle"
+          },
+          "blocks": {}
+        },
+        "catnav_10": {
+          "type": "category",
+          "settings": {
+            "icon": "marine",
+            "label": "Marine",
+            "link": "/collections/marine-batteries-accessories"
+          },
+          "blocks": {}
+        },
+        "catnav_11": {
+          "type": "category",
+          "settings": {
+            "icon": "apparel",
+            "label": "Apparel",
+            "link": "/collections/apparel"
+          },
+          "blocks": {}
+        },
+        "catnav_12": {
+          "type": "category",
+          "settings": {
+            "icon": "kids",
+            "label": "Kids",
+            "link": "/collections/kids-zone"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "catnav_1",
+        "catnav_2",
+        "catnav_3",
+        "catnav_4",
+        "catnav_5",
+        "catnav_6",
+        "catnav_7",
+        "catnav_8",
+        "catnav_9",
+        "catnav_10",
+        "catnav_11",
+        "catnav_12"
+      ],
+      "settings": {
+        "species_heading": "Shop by species",
+        "category_heading": "Shop by category",
+        "background_color": "#FFFFFF",
+        "text_color": "#0B171D",
+        "padding-block-start": 36,
+        "padding-block-end": 28
+      }
+    },
+    "shorettes_feature_tiles": {
+      "type": "shorettes-feature-tiles",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "heading": "Shorette's\noriginals",
+            "text": "Custom lures. Built by anglers for anglers.",
+            "button_label": "Shop originals",
+            "link": "",
+            "accent": "default",
+            "overlay_opacity": 55
+          },
+          "blocks": {}
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "heading": "Slime time",
+            "text": "Loud colors. Big attitude. Fish can't resist.",
+            "button_label": "Shop Slime Time",
+            "link": "/collections/slime-time",
+            "accent": "slime",
+            "overlay_opacity": 60
+          },
+          "blocks": {}
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "heading": "Community\ncatches",
+            "text": "Real anglers. Real fish. Real stories.",
+            "button_label": "View catches",
+            "link": "",
+            "accent": "default",
+            "overlay_opacity": 55
+          },
+          "blocks": {}
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "heading": "New\narrivals",
+            "text": "The latest gear from the best brands.",
+            "button_label": "Shop new",
+            "link": "/collections/all?sort_by=created-descending",
+            "accent": "default",
+            "overlay_opacity": 55
+          },
+          "blocks": {}
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "heading": "Best\nsellers",
+            "text": "Proven winners that get it done.",
+            "button_label": "Shop best sellers",
+            "link": "/collections/all?sort_by=best-selling",
+            "accent": "default",
+            "overlay_opacity": 55
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#FFFFFF",
+        "tile_height": 260,
+        "gap": 12,
+        "padding-block-start": 8,
+        "padding-block-end": 40
+      }
+    },
+    "shorettes_brand_strip": {
+      "type": "shorettes-brand-strip",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "name": "13 Fishing",
+            "link": "/collections/vendors?q=13+Fishing"
+          },
+          "blocks": {}
+        },
+        "brand_2": {
+          "type": "brand",
+          "settings": {
+            "name": "6th Sense",
+            "link": "/collections/vendors?q=6th+Sense"
+          },
+          "blocks": {}
+        },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "name": "Berkley",
+            "link": "/collections/vendors?q=Berkley"
+          },
+          "blocks": {}
+        },
+        "brand_4": {
+          "type": "brand",
+          "settings": {
+            "name": "Bomber Lures",
+            "link": "/collections/vendors?q=Bomber+Lures"
+          },
+          "blocks": {}
+        },
+        "brand_5": {
+          "type": "brand",
+          "settings": {
+            "name": "Chaos Tackle",
+            "link": "/collections/vendors?q=Chaos+Tackle"
+          },
+          "blocks": {}
+        },
+        "brand_6": {
+          "type": "brand",
+          "settings": {
+            "name": "Drifter Tackle",
+            "link": "/collections/vendors?q=Drifter+Tackle"
+          },
+          "blocks": {}
+        },
+        "brand_7": {
+          "type": "brand",
+          "settings": {
+            "name": "Eagle Claw",
+            "link": "/collections/vendors?q=Eagle+Claw"
+          },
+          "blocks": {}
+        },
+        "brand_8": {
+          "type": "brand",
+          "settings": {
+            "name": "Headbanger Lures",
+            "link": "/collections/vendors?q=Headbanger+Lures"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4",
+        "brand_5",
+        "brand_6",
+        "brand_7",
+        "brand_8"
+      ],
+      "settings": {
+        "heading": "Shop top brands",
+        "view_all_label": "",
+        "view_all_link": "",
+        "background_color": "#FFFFFF",
+        "logo_height": 34,
+        "padding-block-start": 28,
+        "padding-block-end": 28
+      }
+    },
+    "shorettes_trust_bar": {
+      "type": "shorettes-trust-bar",
+      "blocks": {
+        "trust_1": {
+          "type": "item",
+          "settings": {
+            "icon": "shipping",
+            "heading": "Fast shipping",
+            "text": "Orders ship same or next business day."
+          },
+          "blocks": {}
+        },
+        "trust_2": {
+          "type": "item",
+          "settings": {
+            "icon": "secure",
+            "heading": "Secure checkout",
+            "text": "Safe & secure shopping experience."
+          },
+          "blocks": {}
+        },
+        "trust_3": {
+          "type": "item",
+          "settings": {
+            "icon": "angler",
+            "heading": "Angler owned",
+            "text": "We fish it, so we sell it."
+          },
+          "blocks": {}
+        },
+        "trust_4": {
+          "type": "item",
+          "settings": {
+            "icon": "support",
+            "heading": "Real customer support",
+            "text": "Local help from people who care."
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#0B171D",
+        "text_color": "#F4F1E8",
+        "padding-block-start": 36,
+        "padding-block-end": 36
       }
     }
   },
   "order": [
+    "shorettes_hero",
+    "shorettes_category_nav",
+    "shorettes_feature_tiles",
+    "product_list_fa6P9H",
+    "176598765768890489",
+    "shorettes_brand_strip",
+    "shorettes_trust_bar",
+    "hero_jVaWmY",
     "1766099948839f0bac",
     "1766011629720e99cd",
     "17659924951d04f9a6",
-    "hero_jVaWmY",
-    "product_list_fa6P9H",
-    "176598765768890489",
     "176653759330716849"
   ]
 }
