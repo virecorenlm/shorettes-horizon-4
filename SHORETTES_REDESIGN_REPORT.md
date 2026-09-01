@@ -2,7 +2,13 @@
 
 Theme: **Shopify Horizon 4.1.5** (Online Store 2.0, block-based)
 Store: shorettesbaitandtackle.com
-Baseline commit: `0fdbc35` · Delivered through `08b9a52`
+Baseline commit: `0fdbc35` · Phase 1 through `9a50b10` · **Phase 2 through `b1fc3c6`**
+
+> **Phase 2 superseded parts of this report.** The palette is now black / charcoal /
+> red / white, not navy / orange. For current state see **`PHASE2_HANDOFF.md`**,
+> **`SHOPIFY_NAVIGATION_SETUP.md`**, **`SHOPIFY_COLLECTION_MAPPING.md`** and
+> **`SHORETTES_ASSET_REQUIREMENTS.md`**. Sections 6–8 below are superseded by those
+> documents; the rest still describes the architecture accurately.
 
 ---
 
@@ -253,3 +259,80 @@ Then in **Online Store → Themes → Shorette's redesign → Customize**:
 
 **To roll back:** `git revert` to `0fdbc35`, or in admin use **Online Store → Themes →
 Actions** to keep the currently published theme live — this work has not touched it.
+
+---
+
+# Phase 2 addendum
+
+## Palette change
+
+Phase 1 shipped Deep River Navy / St. Lawrence Blue / Bone / Signal Orange. Phase 2
+replaced it with the stated identity:
+
+| Role | Phase 1 | Phase 2 | Token |
+|---|---|---|---|
+| Deepest surface | `#0B171D` navy | **`#0A0A0A` black** | `--shorettes-ink` |
+| Secondary dark | `#176B87` blue | **`#17191A` charcoal** | `--shorettes-charcoal` |
+| Accent | `#F05A28` orange | **`#D21404` red** | `--shorettes-red` |
+| Light surface | `#F4F1E8` bone | **`#FFFFFF` white** | `--shorettes-paper` |
+| Muted | `#66747A` | `#6B7378` | `--shorettes-slate` |
+
+The red was sampled from the Shorette's muskie crest artwork in Content → Files, so the
+interface matches the logo rather than approximating it. 5.47:1 on white (WCAG AA).
+
+Token names were renamed to match what they now hold. 50 legacy references across the
+stylesheet and five sections; 0 remaining.
+
+## Homepage H1 — audit and recommendation
+
+**Finding: the existing H1 is semantically reasonable. Leave it.**
+
+`sections/header.liquid:391` emits, only when `request.page_type == 'index'`:
+
+```liquid
+<h1 class="visually-hidden">{{ shop.name }}</h1>
+```
+
+Classified against your list:
+
+| Question | Answer |
+|---|---|
+| Meaningful accessible text? | **Yes** — renders "Shorette's Bait And Tackle" |
+| Logo alt text? | **No** — independent of the logo. The logo block carries its own `alt` |
+| Visually hidden? | **Yes** — `.visually-hidden`, present for assistive tech and crawlers |
+| Image only? | **No** |
+| Store name text? | **Yes**, from `{{ shop.name }}` |
+
+It is real text, correctly hidden, unique on the page, and it is the only `h1` the home
+page emits — the four other `<h1>` occurrences in the theme are on article, cart and
+product templates, which the home page does not render.
+
+**Recommendation: no change.** Naming the store as the home page's H1 is standard and
+correct; the home page is *about* the store, not about "Built for the water we fish."
+Promoting the hero to H1 would require either editing Horizon's header (invasive, touches
+every template) or leaving two H1s (worse). The hero's `heading_tag` setting defaults to
+`h2` and can be switched to `h1` in the theme editor if you ever disable Horizon's, but
+there is no SEO or accessibility case for doing so.
+
+## Free-shipping threshold
+
+Verified **not** hardcoded in Liquid or CSS. It lives in Header → Announcement bar →
+first message text, a plain theme-editor field. No code change is needed to edit it.
+
+## Footer socials
+
+Four generic platform roots (`facebook.com`, `youtube.com`, `tiktok.com`, `x.com`) were
+blanked rather than guessed — blank means the icon does not render, which beats sending a
+customer to a login wall. Instagram was set from the handle your own home page states.
+See `PHASE2_HANDOFF.md` §Needs real contact/social data.
+
+## Phase 2 validation
+
+| Check | Result |
+|---|---|
+| `shopify theme check` | 25 offenses, **all pre-existing**, **0 introduced** |
+| Theme JSON | 17 files parse |
+| Section schemas | 5 valid; no duplicate setting or block ids |
+| Asset references | 84 resolve; 0 dead |
+| Horizontal overflow | None at 390 px |
+| Preserved content | Community Catches, Instafeed and the 9-block section intact |
