@@ -1,0 +1,687 @@
+{% doc %}
+  @prompt
+    generate a block for my livingston lures blog, can we add a shop now button that brings them to the product
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-blog-posts-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-blog-posts-{{ ai_gen_id }} {
+      width: {{ block.settings.desktop_width_percent }}%;
+      margin: 0 auto;
+    }
+  }
+
+  .ai-blog-posts-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: {{ block.settings.heading_spacing }}px;
+  }
+
+  .ai-blog-posts-title-{{ ai_gen_id }} {
+    margin: 0 0 12px;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+  }
+
+  .ai-blog-posts-description-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+  }
+
+  .ai-blog-posts-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.grid_gap }}px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-blog-posts-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.posts_per_row }}, 1fr);
+    }
+  }
+
+  .ai-blog-post-card-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-blog-post-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-blog-post-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: {{ block.settings.image_aspect_ratio }}%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .ai-blog-post-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-blog-post-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+  }
+
+  .ai-blog-post-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-blog-post-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .ai-blog-post-meta-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: {{ block.settings.meta_color }};
+  }
+
+  .ai-blog-post-date-{{ ai_gen_id }},
+  .ai-blog-post-author-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ai-blog-post-title-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ai-blog-post-title-{{ ai_gen_id }} {
+    margin: 0 0 12px;
+    font-size: {{ block.settings.post_title_size }}px;
+    line-height: 1.3;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .ai-blog-post-title-link-{{ ai_gen_id }}:hover .ai-blog-post-title-{{ ai_gen_id }} {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-blog-post-excerpt-{{ ai_gen_id }} {
+    margin: 0 0 16px;
+    font-size: {{ block.settings.excerpt_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    flex-grow: 1;
+  }
+
+  .ai-blog-post-buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .ai-blog-post-link-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-blog-post-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+  }
+
+  .ai-blog-post-shop-link-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background-color: {{ block.settings.shop_button_background }};
+    color: {{ block.settings.shop_button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-blog-post-shop-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.shop_button_hover_background }};
+  }
+
+  .ai-blog-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-blog-empty-state-{{ ai_gen_id }} h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+  }
+
+  .ai-blog-empty-state-{{ ai_gen_id }} p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+{% endstyle %}
+
+<blog-posts-{{ ai_gen_id }} class="ai-blog-posts-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank or block.settings.description != blank %}
+    <div class="ai-blog-posts-header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-blog-posts-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-blog-posts-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if block.settings.blog != blank %}
+    {% assign blog = block.settings.blog %}
+    {% assign posts_to_show = block.settings.posts_count %}
+    
+    {% if blog.articles_count > 0 %}
+      <ul class="ai-blog-posts-grid-{{ ai_gen_id }}">
+        {% for article in blog.articles limit: posts_to_show %}
+          <li>
+            <article class="ai-blog-post-card-{{ ai_gen_id }}">
+              <a href="{{ article.url }}" class="ai-blog-post-image-wrapper-{{ ai_gen_id }}">
+                {% if article.image %}
+                  <img
+                    src="{{ article.image | image_url: width: 800 }}"
+                    alt="{{ article.image.alt | escape }}"
+                    class="ai-blog-post-image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="800"
+                    height="{{ 800 | divided_by: article.image.aspect_ratio | round }}"
+                  >
+                {% else %}
+                  <div class="ai-blog-post-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </a>
+
+              <div class="ai-blog-post-content-{{ ai_gen_id }}">
+                {% if block.settings.show_date or block.settings.show_author %}
+                  <div class="ai-blog-post-meta-{{ ai_gen_id }}">
+                    {% if block.settings.show_date %}
+                      <time class="ai-blog-post-date-{{ ai_gen_id }}" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        {{ article.published_at | date: '%B %d, %Y' }}
+                      </time>
+                    {% endif %}
+                    {% if block.settings.show_author and article.author != blank %}
+                      <span class="ai-blog-post-author-{{ ai_gen_id }}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        {{ article.author }}
+                      </span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                <a href="{{ article.url }}" class="ai-blog-post-title-link-{{ ai_gen_id }}">
+                  <h3 class="ai-blog-post-title-{{ ai_gen_id }}">{{ article.title }}</h3>
+                </a>
+
+                {% if block.settings.show_excerpt and article.excerpt != blank %}
+                  <div class="ai-blog-post-excerpt-{{ ai_gen_id }}">
+                    {{ article.excerpt | strip_html | truncate: block.settings.excerpt_length }}
+                  </div>
+                {% endif %}
+
+                <div class="ai-blog-post-buttons-{{ ai_gen_id }}">
+                  {% if block.settings.show_read_more %}
+                    <a href="{{ article.url }}" class="ai-blog-post-link-{{ ai_gen_id }}">
+                      {{ block.settings.button_text }}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </a>
+                  {% endif %}
+
+                  {% if block.settings.show_shop_button %}
+                    {% assign product_metafield = article.metafields.custom.featured_product %}
+                    {% if product_metafield != blank %}
+                      <a href="{{ product_metafield.url }}" class="ai-blog-post-shop-link-{{ ai_gen_id }}">
+                        {{ block.settings.shop_button_text }}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="9" cy="21" r="1"></circle>
+                          <circle cx="20" cy="21" r="1"></circle>
+                          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="ai-blog-empty-state-{{ ai_gen_id }}">
+        <h3>No posts yet</h3>
+        <p>Start creating blog posts to showcase your Livingston Lures content</p>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="ai-blog-empty-state-{{ ai_gen_id }}">
+      <h3>Select a blog</h3>
+      <p>Choose your Livingston Lures blog from the block settings</p>
+    </div>
+  {% endif %}
+</blog-posts-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BlogPosts{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('blog-posts-{{ ai_gen_id }}', BlogPosts{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Livingston Lures blog",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_count",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Number of posts",
+      "default": 3
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest from the blog"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "posts_per_row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Posts per row (desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Heading spacing",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Post card"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_aspect_ratio",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Image aspect ratio",
+      "default": 65
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "excerpt_length",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "label": "Excerpt length",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Read more button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_read_more",
+      "label": "Show read more button",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Read more"
+    },
+    {
+      "type": "header",
+      "content": "Shop now button"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add a product metafield named 'custom.featured_product' to your blog posts to display the shop button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shop_button",
+      "label": "Show shop now button",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "shop_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "post_title_size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Post title size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "excerpt_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Excerpt size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Meta text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Read more button colors"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "header",
+      "content": "Shop now button colors"
+    },
+    {
+      "type": "color",
+      "id": "shop_button_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "shop_button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "shop_button_hover_background",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Livingston Lures blog"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1479 @@
+{% doc %}
+  @prompt
+    Photo Gallery/Community Showcase:
+    could you help you build a custom "Catch of the Day" or "Community Catches" gallery using Liquid. This could display submitted fishing photos in a grid layout, potentially with filters by species. You could even link photos to the specific products used in each catch, creating social proof and product discovery. submission form on the same page as gallery , optional info should people submit with their photo? (Name, location, species caught, tackle used, story/caption,  i want to approve them first, gallery filterable by species
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-community-catches-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  .ai-community-catches__container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-community-catches__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-community-catches__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px;
+  }
+
+  .ai-community-catches__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .ai-community-catches__tabs-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .ai-community-catches__tab-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    background-color: {{ block.settings.tab_background }};
+    color: {{ block.settings.tab_text_color }};
+    border: 1px solid {{ block.settings.tab_border_color }};
+    border-radius: {{ block.settings.tab_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .ai-community-catches__tab-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.tab_hover_background }};
+    color: {{ block.settings.tab_hover_text_color }};
+  }
+
+  .ai-community-catches__tab-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_active_background }};
+    color: {{ block.settings.tab_active_text_color }};
+    border-color: {{ block.settings.tab_active_background }};
+  }
+
+  .ai-community-catches__content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-community-catches__content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-community-catches__filters-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ai-community-catches__filter-{{ ai_gen_id }} {
+    padding: 8px 16px;
+    background-color: {{ block.settings.filter_background }};
+    color: {{ block.settings.filter_text_color }};
+    border: 1px solid {{ block.settings.filter_border_color }};
+    border-radius: {{ block.settings.filter_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 13px;
+  }
+
+  .ai-community-catches__filter-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.filter_hover_background }};
+  }
+
+  .ai-community-catches__filter-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.filter_active_background }};
+    color: {{ block.settings.filter_active_text_color }};
+    border-color: {{ block.settings.filter_active_background }};
+  }
+
+  .ai-community-catches__gallery-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: {{ block.settings.gallery_gap }}px;
+  }
+
+  .ai-community-catches__card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-community-catches__card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-community-catches__card-image-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-community-catches__card-content-{{ ai_gen_id }} {
+    padding: 16px;
+  }
+
+  .ai-community-catches__card-species-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: {{ block.settings.species_badge_background }};
+    color: {{ block.settings.species_badge_text_color }};
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .ai-community-catches__card-name-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ block.settings.card_text_color }};
+    margin: 0 0 4px;
+  }
+
+  .ai-community-catches__card-location-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.card_text_color }};
+    opacity: 0.7;
+    margin: 0 0 12px;
+  }
+
+  .ai-community-catches__card-story-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.card_text_color }};
+    line-height: 1.5;
+    margin: 0 0 12px;
+  }
+
+  .ai-community-catches__card-tackle-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.card_text_color }};
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .ai-community-catches__card-product-link-{{ ai_gen_id }} {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background-color: {{ block.settings.product_link_background }};
+    color: {{ block.settings.product_link_text_color }};
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-community-catches__card-product-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.product_link_hover_background }};
+  }
+
+  .ai-community-catches__form-{{ ai_gen_id }} {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: {{ block.settings.form_background }};
+    padding: 32px;
+    border-radius: {{ block.settings.form_border_radius }}px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-community-catches__form-group-{{ ai_gen_id }} {
+    margin-bottom: 20px;
+  }
+
+  .ai-community-catches__form-label-{{ ai_gen_id }} {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ block.settings.form_text_color }};
+    margin-bottom: 8px;
+  }
+
+  .ai-community-catches__form-required-{{ ai_gen_id }} {
+    color: #d82c0d;
+  }
+
+  .ai-community-catches__form-input-{{ ai_gen_id }},
+  .ai-community-catches__form-textarea-{{ ai_gen_id }},
+  .ai-community-catches__form-select-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid {{ block.settings.form_input_border }};
+    border-radius: {{ block.settings.form_input_border_radius }}px;
+    font-size: 14px;
+    color: {{ block.settings.form_text_color }};
+    background-color: {{ block.settings.form_input_background }};
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-community-catches__form-input-{{ ai_gen_id }}:focus,
+  .ai-community-catches__form-textarea-{{ ai_gen_id }}:focus,
+  .ai-community-catches__form-select-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.form_input_focus_border }};
+  }
+
+  .ai-community-catches__form-textarea-{{ ai_gen_id }} {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .ai-community-catches__form-help-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.form_text_color }};
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  .ai-community-catches__form-button-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: {{ block.settings.submit_button_background }};
+    color: {{ block.settings.submit_button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.submit_button_border_radius }}px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-community-catches__form-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.submit_button_hover_background }};
+  }
+
+  .ai-community-catches__form-success-{{ ai_gen_id }} {
+    padding: 16px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .ai-community-catches__form-error-{{ ai_gen_id }} {
+    padding: 16px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .ai-community-catches__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-community-catches__gallery-{{ ai_gen_id }} {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .ai-community-catches__form-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+  }
+{% endstyle %}
+
+<community-catches-{{ ai_gen_id }} class="ai-community-catches-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-community-catches__container-{{ ai_gen_id }}">
+    <div class="ai-community-catches__header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-community-catches__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-community-catches__description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="ai-community-catches__tabs-{{ ai_gen_id }}">
+      <button class="ai-community-catches__tab-{{ ai_gen_id }} active" data-tab="gallery">
+        View Gallery
+      </button>
+      <button class="ai-community-catches__tab-{{ ai_gen_id }}" data-tab="submit">
+        Submit Your Catch
+      </button>
+    </div>
+
+    <div class="ai-community-catches__content-{{ ai_gen_id }} active" data-content="gallery">
+      {% if block.settings.enable_species_filter %}
+        <div class="ai-community-catches__filters-{{ ai_gen_id }}">
+          <button class="ai-community-catches__filter-{{ ai_gen_id }} active" data-species="all">
+            All Species
+          </button>
+          {% assign species_list = block.settings.species_list | split: ',' %}
+          {% for species in species_list %}
+            {% assign trimmed_species = species | strip %}
+            {% if trimmed_species != blank %}
+              <button class="ai-community-catches__filter-{{ ai_gen_id }}" data-species="{{ trimmed_species | handleize }}">
+                {{ trimmed_species }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="ai-community-catches__gallery-{{ ai_gen_id }}">
+        {% for i in (1..12) %}
+          {% liquid
+            assign catch_enabled_key = 'catch_' | append: i | append: '_enabled'
+            assign catch_image_key = 'catch_' | append: i | append: '_image'
+            assign catch_name_key = 'catch_' | append: i | append: '_name'
+            assign catch_location_key = 'catch_' | append: i | append: '_location'
+            assign catch_species_key = 'catch_' | append: i | append: '_species'
+            assign catch_tackle_key = 'catch_' | append: i | append: '_tackle'
+            assign catch_story_key = 'catch_' | append: i | append: '_story'
+            assign catch_product_key = 'catch_' | append: i | append: '_product'
+
+            assign catch_enabled = block.settings[catch_enabled_key]
+            assign catch_image = block.settings[catch_image_key]
+            assign catch_name = block.settings[catch_name_key]
+            assign catch_location = block.settings[catch_location_key]
+            assign catch_species = block.settings[catch_species_key]
+            assign catch_tackle = block.settings[catch_tackle_key]
+            assign catch_story = block.settings[catch_story_key]
+            assign catch_product = block.settings[catch_product_key]
+          %}
+
+          {% if catch_enabled and catch_image != blank %}
+            <div class="ai-community-catches__card-{{ ai_gen_id }}" data-species="{{ catch_species | handleize }}">
+              <img
+                src="{{ catch_image | image_url: width: 600 }}"
+                alt="{{ catch_species }} caught by {{ catch_name }}"
+                class="ai-community-catches__card-image-{{ ai_gen_id }}"
+                loading="lazy"
+                width="600"
+                height="600"
+              >
+              <div class="ai-community-catches__card-content-{{ ai_gen_id }}">
+                {% if catch_species != blank %}
+                  <span class="ai-community-catches__card-species-{{ ai_gen_id }}">{{ catch_species }}</span>
+                {% endif %}
+                {% if catch_name != blank %}
+                  <h3 class="ai-community-catches__card-name-{{ ai_gen_id }}">{{ catch_name }}</h3>
+                {% endif %}
+                {% if catch_location != blank %}
+                  <p class="ai-community-catches__card-location-{{ ai_gen_id }}">📍 {{ catch_location }}</p>
+                {% endif %}
+                {% if catch_story != blank %}
+                  <p class="ai-community-catches__card-story-{{ ai_gen_id }}">{{ catch_story }}</p>
+                {% endif %}
+                {% if catch_tackle != blank %}
+                  <p class="ai-community-catches__card-tackle-{{ ai_gen_id }}"><strong>Tackle:</strong> {{ catch_tackle }}</p>
+                {% endif %}
+                {% if catch_product != blank %}
+                  <a href="{{ catch_product.url }}" class="ai-community-catches__card-product-link-{{ ai_gen_id }}">
+                    Shop {{ catch_product.title }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% assign has_catches = false %}
+      {% for i in (1..12) %}
+        {% assign catch_enabled_key = 'catch_' | append: i | append: '_enabled' %}
+        {% if block.settings[catch_enabled_key] %}
+          {% assign has_catches = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% unless has_catches %}
+        <div class="ai-community-catches__empty-state-{{ ai_gen_id }}">
+          <p>No catches to display yet. Be the first to submit your catch!</p>
+        </div>
+      {% endunless %}
+    </div>
+
+    <div class="ai-community-catches__content-{{ ai_gen_id }}" data-content="submit">
+      <div class="ai-community-catches__form-{{ ai_gen_id }}">
+        {%- form 'contact' -%}
+          <input type="hidden" name="contact[subject]" value="Community Catch Submission">
+
+          {%- if form.posted_successfully? -%}
+            <div class="ai-community-catches__form-success-{{ ai_gen_id }}">
+              {{ block.settings.success_message }}
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="ai-community-catches__form-error-{{ ai_gen_id }}">
+              Please correct the errors below and try again.
+            </div>
+          {%- endif -%}
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-name-{{ ai_gen_id }}">
+              Your Name <span class="ai-community-catches__form-required-{{ ai_gen_id }}">*</span>
+            </label>
+            <input
+              type="text"
+              id="catch-name-{{ ai_gen_id }}"
+              name="contact[name]"
+              class="ai-community-catches__form-input-{{ ai_gen_id }}"
+              required
+              {% if form.errors %}
+                aria-invalid="true"
+              {% endif %}
+            >
+          </div>
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-email-{{ ai_gen_id }}">
+              Email <span class="ai-community-catches__form-required-{{ ai_gen_id }}">*</span>
+            </label>
+            <input
+              type="email"
+              id="catch-email-{{ ai_gen_id }}"
+              name="contact[email]"
+              class="ai-community-catches__form-input-{{ ai_gen_id }}"
+              required
+              {% if form.errors %}
+                aria-invalid="true"
+              {% endif %}
+            >
+            <p class="ai-community-catches__form-help-{{ ai_gen_id }}">We'll contact you if we need more information</p>
+          </div>
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-location-{{ ai_gen_id }}">
+              Location
+            </label>
+            <input
+              type="text"
+              id="catch-location-{{ ai_gen_id }}"
+              name="contact[location]"
+              class="ai-community-catches__form-input-{{ ai_gen_id }}"
+              placeholder="e.g., Lake Michigan, Chicago"
+            >
+          </div>
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-species-{{ ai_gen_id }}">
+              Species Caught <span class="ai-community-catches__form-required-{{ ai_gen_id }}">*</span>
+            </label>
+            <select
+              id="catch-species-{{ ai_gen_id }}"
+              name="contact[species]"
+              class="ai-community-catches__form-select-{{ ai_gen_id }}"
+              required
+            >
+              <option value="">Select a species</option>
+              {% assign species_list = block.settings.species_list | split: ',' %}
+              {% for species in species_list %}
+                {% assign trimmed_species = species | strip %}
+                {% if trimmed_species != blank %}
+                  <option value="{{ trimmed_species }}">{{ trimmed_species }}</option>
+                {% endif %}
+              {% endfor %}
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-tackle-{{ ai_gen_id }}">
+              Tackle Used
+            </label>
+            <input
+              type="text"
+              id="catch-tackle-{{ ai_gen_id }}"
+              name="contact[tackle]"
+              class="ai-community-catches__form-input-{{ ai_gen_id }}"
+              placeholder="e.g., 6lb test line, crankbait"
+            >
+          </div>
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-story-{{ ai_gen_id }}">
+              Your Story
+            </label>
+            <textarea
+              id="catch-story-{{ ai_gen_id }}"
+              name="contact[body]"
+              class="ai-community-catches__form-textarea-{{ ai_gen_id }}"
+              placeholder="Tell us about your catch..."
+            ></textarea>
+          </div>
+
+          <div class="ai-community-catches__form-group-{{ ai_gen_id }}">
+            <label class="ai-community-catches__form-label-{{ ai_gen_id }}" for="catch-photo-url-{{ ai_gen_id }}">
+              Photo URL <span class="ai-community-catches__form-required-{{ ai_gen_id }}">*</span>
+            </label>
+            <input
+              type="url"
+              id="catch-photo-url-{{ ai_gen_id }}"
+              name="contact[photo_url]"
+              class="ai-community-catches__form-input-{{ ai_gen_id }}"
+              placeholder="https://..."
+              required
+            >
+            <p class="ai-community-catches__form-help-{{ ai_gen_id }}">Upload your photo to a service like Imgur or Dropbox and paste the link here</p>
+          </div>
+
+          <button type="submit" class="ai-community-catches__form-button-{{ ai_gen_id }}">
+            Submit Your Catch
+          </button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</community-catches-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CommunityCatches{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupTabs();
+        this.setupFilters();
+      }
+
+      setupTabs() {
+        const tabs = this.querySelectorAll('.ai-community-catches__tab-{{ ai_gen_id }}');
+        const contents = this.querySelectorAll('.ai-community-catches__content-{{ ai_gen_id }}');
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            const targetTab = tab.getAttribute('data-tab');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            tab.classList.add('active');
+            const targetContent = this.querySelector(`[data-content="${targetTab}"]`);
+            if (targetContent) {
+              targetContent.classList.add('active');
+            }
+          });
+        });
+      }
+
+      setupFilters() {
+        const filters = this.querySelectorAll('.ai-community-catches__filter-{{ ai_gen_id }}');
+        const cards = this.querySelectorAll('.ai-community-catches__card-{{ ai_gen_id }}');
+
+        filters.forEach(filter => {
+          filter.addEventListener('click', () => {
+            const species = filter.getAttribute('data-species');
+
+            filters.forEach(f => f.classList.remove('active'));
+            filter.classList.add('active');
+
+            cards.forEach(card => {
+              if (species === 'all' || card.getAttribute('data-species') === species) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        });
+      }
+    }
+
+    customElements.define('community-catches-{{ ai_gen_id }}', CommunityCatches{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Community catches",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Community Catches"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "Check out amazing catches from our fishing community"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Species filter"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_species_filter",
+      "label": "Enable species filter",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "species_list",
+      "label": "Species list",
+      "default": "Bass, Trout, Walleye, Pike, Muskie, Catfish, Crappie, Bluegill, Perch, Salmon",
+      "info": "Comma-separated list of fish species for filtering"
+    },
+    {
+      "type": "header",
+      "content": "Tab style"
+    },
+    {
+      "type": "color",
+      "id": "tab_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_text_color",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_background",
+      "label": "Active background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text_color",
+      "label": "Active text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Filter style"
+    },
+    {
+      "type": "color",
+      "id": "filter_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "filter_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "filter_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "filter_hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_background",
+      "label": "Active background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "filter_active_text_color",
+      "label": "Active text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "filter_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Gallery style"
+    },
+    {
+      "type": "range",
+      "id": "gallery_gap",
+      "label": "Gap between cards",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "species_badge_background",
+      "label": "Species badge background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "species_badge_text_color",
+      "label": "Species badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "product_link_background",
+      "label": "Product link background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "product_link_text_color",
+      "label": "Product link text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "product_link_hover_background",
+      "label": "Product link hover",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Form style"
+    },
+    {
+      "type": "color",
+      "id": "form_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "form_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "form_input_background",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_input_border",
+      "label": "Input border",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "form_input_focus_border",
+      "label": "Input focus border",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "form_input_border_radius",
+      "label": "Input border radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "submit_button_background",
+      "label": "Submit button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "submit_button_text_color",
+      "label": "Submit button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "submit_button_hover_background",
+      "label": "Submit button hover",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "submit_button_border_radius",
+      "label": "Submit button radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "inline_richtext",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for sharing your catch! We'll review it and add it to the gallery soon."
+    },
+    {
+      "type": "header",
+      "content": "Catch 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_1_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_1_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_1_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_1_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_1_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_1_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_1_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_1_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_2_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_2_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_2_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_2_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_2_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_2_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_2_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_2_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_3_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_3_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_3_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_3_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_3_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_3_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_3_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_3_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_4_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_4_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_4_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_4_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_4_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_4_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_4_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_4_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_5_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_5_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_5_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_5_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_5_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_5_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_5_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_5_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_6_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_6_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_6_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_6_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_6_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_6_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_6_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_6_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_7_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_7_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_7_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_7_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_7_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_7_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_7_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_7_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_8_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_8_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_8_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_8_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_8_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_8_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_8_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_8_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_9_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_9_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_9_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_9_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_9_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_9_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_9_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_9_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_10_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_10_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_10_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_10_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_10_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_10_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_10_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_10_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 11"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_11_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_11_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_11_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_11_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_11_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_11_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_11_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_11_product",
+      "label": "Related product"
+    },
+    {
+      "type": "header",
+      "content": "Catch 12"
+    },
+    {
+      "type": "checkbox",
+      "id": "catch_12_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "catch_12_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "catch_12_name",
+      "label": "Angler name"
+    },
+    {
+      "type": "text",
+      "id": "catch_12_location",
+      "label": "Location"
+    },
+    {
+      "type": "text",
+      "id": "catch_12_species",
+      "label": "Species"
+    },
+    {
+      "type": "text",
+      "id": "catch_12_tackle",
+      "label": "Tackle used"
+    },
+    {
+      "type": "textarea",
+      "id": "catch_12_story",
+      "label": "Story"
+    },
+    {
+      "type": "product",
+      "id": "catch_12_product",
+      "label": "Related product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community catches"
+    }
+  ]
+}
+{% endschema %}

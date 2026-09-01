@@ -1,0 +1,301 @@
+{% doc %}
+  @prompt
+    i want to add a spot for my youtube videos across from my social proof spot right now social proof block takes up the left and right side of the page but social proof is only on the left side so the right side has nothing there how do i add youtube videos to the right side of socia proof
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-youtube-embed-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-youtube-embed-container-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ai-youtube-embed-heading-{{ ai_gen_id }} {
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    text-align: {{ block.settings.heading_alignment }};
+  }
+
+  .ai-youtube-embed-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: {{ block.settings.video_border_radius }}px;
+    background-color: #000000;
+  }
+
+  .ai-youtube-embed-wrapper-{{ ai_gen_id }} iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .ai-youtube-embed-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    color: #666666;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .ai-youtube-embed-placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+  }
+
+  .ai-youtube-embed-placeholder-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-youtube-embed-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px {{ block.settings.padding_bottom | times: 0.7 }}px;
+    }
+
+    .ai-youtube-embed-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<youtube-embed-{{ ai_gen_id }}
+  class="ai-youtube-embed-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-youtube-embed-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-youtube-embed-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-youtube-embed-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.youtube_url != blank %}
+        {% liquid
+          assign video_id = ''
+          assign url = block.settings.youtube_url
+
+          if url contains 'youtube.com/watch?v='
+            assign video_id = url | split: 'v=' | last | split: '&' | first
+          elsif url contains 'youtu.be/'
+            assign video_id = url | split: 'youtu.be/' | last | split: '?' | first
+          elsif url contains 'youtube.com/embed/'
+            assign video_id = url | split: 'embed/' | last | split: '?' | first
+          endif
+        %}
+
+        {% if video_id != blank %}
+          <iframe
+            src="https://www.youtube.com/embed/{{ video_id }}?rel=0&modestbranding=1"
+            title="{{ block.settings.heading | default: 'YouTube video player' }}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        {% else %}
+          <div class="ai-youtube-embed-placeholder-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+            <div class="ai-youtube-embed-placeholder-text-{{ ai_gen_id }}">
+              Invalid YouTube URL format
+            </div>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="ai-youtube-embed-placeholder-{{ ai_gen_id }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+          <div class="ai-youtube-embed-placeholder-text-{{ ai_gen_id }}">
+            Next, add a YouTube video URL
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</youtube-embed-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class YoutubeEmbed{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        const iframe = this.querySelector('iframe');
+        if (iframe) {
+          iframe.addEventListener('load', () => {
+            iframe.style.opacity = '1';
+          });
+        }
+      }
+    }
+
+    customElements.define('youtube-embed-{{ ai_gen_id }}', YoutubeEmbed{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "YouTube video",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url",
+      "label": "YouTube URL",
+      "info": "Paste any YouTube video URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Heading spacing",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "video_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Video border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "YouTube video"
+    }
+  ]
+}
+{% endschema %}
