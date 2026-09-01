@@ -50,31 +50,31 @@
     {% endif %}
   {% endcapture %}
 
-  {% if is_row %}
-    <div class="announcement-bar__row shorettes-announcement-row">
-      <div class="announcement-bar__row-messages shorettes-announcement-row__messages">
-        {% content_for 'blocks' %}
-      </div>
-      {{ contact_markup }}
-    </div>
-  {% else %}
-    <announcement-bar-component
-      class="announcement-bar__slider"
-      {% if autoplay == true %}
-        autoplay="{{ section.settings.speed }}" aria-live="polite"
-      {% endif %}
-    >
-      {% if show_arrows %}
-        {% render 'slideshow-arrows', icon_style: 'chevron' %}
-      {% endif %}
+  {%- comment -%}
+    Shopify permits exactly one block-rendering tag per section and enforces that
+    statically, so the row and carousel layouts cannot each render their own copy.
+    The blocks are rendered once below and the two layouts are purely a CSS
+    difference, switched by the `--row` modifier.
 
-      <div class="announcement-bar__slides">
-        {% content_for 'blocks' %}
-      </div>
-    </announcement-bar-component>
+    In row mode `announcement-bar.js` is not loaded, so `<announcement-bar-component>`
+    stays an inert unknown element and the autoplay attribute is omitted.
+  {%- endcomment -%}
+  <announcement-bar-component
+    class="announcement-bar__slider{% if is_row %} announcement-bar__slider--row shorettes-announcement-row{% endif %}"
+    {% if autoplay == true %}
+      autoplay="{{ section.settings.speed }}" aria-live="polite"
+    {% endif %}
+  >
+    {% if show_arrows %}
+      {% render 'slideshow-arrows', icon_style: 'chevron' %}
+    {% endif %}
+
+    <div class="announcement-bar__slides{% if is_row %} shorettes-announcement-row__messages{% endif %}">
+      {% content_for 'blocks' %}
+    </div>
 
     {{ contact_markup }}
-  {% endif %}
+  </announcement-bar-component>
 </aside>
 
 {% stylesheet %}
@@ -163,30 +163,45 @@
 
   /* ---- Row layout ---- */
 
-  .announcement-bar__row {
+  /* Same markup as the carousel, so every rule here has to undo a carousel rule.
+     The two-class selectors outrank the single-class defaults above. */
+  .announcement-bar__slider--row {
     grid-column: 1 / -1;
     width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--shorettes-space-2xs, 0.5rem) var(--shorettes-space-md, 1.5rem);
   }
 
-  /* Announcements are laid out side by side, so the carousel's stacking and
-     fade-out rules must not apply to them. */
-  .announcement-bar__row-messages .announcement-bar__slide {
-    position: static;
+  /* Undo the stacked grid: announcements sit side by side. */
+  .announcement-bar__slider--row .announcement-bar__slides {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--shorettes-space-2xs, 0.5rem) var(--shorettes-space-md, 1.5rem);
+    width: auto;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .announcement-bar__slider--row .announcement-bar__slides > * {
+    grid-area: auto;
+  }
+
+  /* Undo the fade-out, and the block default of `width: var(--width, 100%)`
+     which would otherwise stack them. */
+  .announcement-bar__slider--row .announcement-bar__slide {
+    position: relative;
+    flex: none;
+    width: auto;
     opacity: 1;
     visibility: visible;
     transition: none;
   }
 
-  /* Blocks default to `width: var(--width, 100%)`, which would stack them. */
-  .announcement-bar__row-messages .announcement-bar__slide,
-  .announcement-bar__row-messages .announcement-bar__text {
+  .announcement-bar__slider--row .announcement-bar__text {
     width: auto;
-  }
-
-  /* A link inside a row announcement must not cover the whole strip. */
-  .announcement-bar__row-messages .announcement-bar__slide {
-    position: relative;
-    flex: none;
   }
 
   /* Keep the contact detail on the same line as the slider when both are shown. */
@@ -194,8 +209,15 @@
     align-items: center;
   }
 
+  @media screen and (min-width: 990px) {
+    .announcement-bar__slider--row {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+  }
+
   @media screen and (max-width: 749px) {
-    .announcement-bar__row-messages .announcement-bar__slide:nth-child(n + 3) {
+    .announcement-bar__slider--row .announcement-bar__slide:nth-child(n + 3) {
       display: none;
     }
   }
