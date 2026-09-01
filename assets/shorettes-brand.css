@@ -1,0 +1,457 @@
+/**
+ * Shorette's Bait & Tackle - brand design system
+ * ------------------------------------------------------------------
+ * Loaded after `base.css`, so it refines Horizon rather than fighting it.
+ *
+ * Contains only what is genuinely shared:
+ *   1. Design-system primitives reused by several sections
+ *   2. Brand-level refinements to the header, navigation and footer
+ *
+ * Per-section component CSS lives in each section's own `{% stylesheet %}`
+ * block, following Horizon's convention. Tokens come from
+ * `snippets/shorettes-brand-vars.liquid`.
+ */
+
+/* ==================================================================
+   1. Primitives
+   ================================================================== */
+
+.shorettes-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.shorettes-section {
+  --shorettes-section-padding: var(--shorettes-space-xl);
+
+  padding-block: var(--shorettes-section-padding);
+}
+
+.shorettes-section--flush {
+  --shorettes-section-padding: 0;
+}
+
+.shorettes-container {
+  width: 100%;
+  max-width: var(--shorettes-content-width);
+  margin-inline: auto;
+  padding-inline: var(--shorettes-gutter);
+}
+
+.shorettes-container--wide {
+  max-width: none;
+}
+
+/* ---- Typography ---- */
+
+.shorettes-eyebrow {
+  margin: 0;
+  font-family: var(--shorettes-ui-family);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: var(--shorettes-eyebrow-tracking);
+  text-transform: uppercase;
+}
+
+.shorettes-display {
+  margin: 0;
+  font-family: var(--shorettes-display-family);
+  font-weight: var(--shorettes-display-weight);
+  line-height: 1.02;
+  letter-spacing: var(--shorettes-display-tracking);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.shorettes-display--xl {
+  font-size: clamp(2.25rem, 6.2vw, 4.5rem);
+}
+
+.shorettes-display--lg {
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+}
+
+.shorettes-display--md {
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+}
+
+.shorettes-display--sm {
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+}
+
+.shorettes-body {
+  margin: 0;
+  font-family: var(--shorettes-ui-family);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.shorettes-body--sm {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ---- Section heading pattern ---- */
+
+.shorettes-heading-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--shorettes-space-sm);
+  margin-block-end: var(--shorettes-space-md);
+}
+
+.shorettes-heading-row__link {
+  font-family: var(--shorettes-ui-family);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--shorettes-blue);
+  transition: color var(--shorettes-transition);
+}
+
+.shorettes-heading-row__link:hover {
+  color: var(--shorettes-orange);
+}
+
+/* ---- Buttons ---- */
+
+.shorettes-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--shorettes-space-2xs);
+  min-height: 3rem;
+  padding-inline: 1.75rem;
+  border: 2px solid transparent;
+  border-radius: var(--shorettes-radius-xs);
+  font-family: var(--shorettes-ui-family);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--shorettes-transition), color var(--shorettes-transition),
+    border-color var(--shorettes-transition);
+}
+
+.shorettes-btn--primary {
+  background-color: var(--shorettes-orange);
+  border-color: var(--shorettes-orange);
+  color: #fff;
+}
+
+.shorettes-btn--primary:hover {
+  background-color: var(--shorettes-orange-hover);
+  border-color: var(--shorettes-orange-hover);
+  color: #fff;
+}
+
+.shorettes-btn--outline-light {
+  background-color: transparent;
+  border-color: rgb(255 255 255 / 0.75);
+  color: #fff;
+}
+
+.shorettes-btn--outline-light:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--shorettes-navy);
+}
+
+.shorettes-btn--outline-dark {
+  background-color: transparent;
+  border-color: var(--shorettes-navy);
+  color: var(--shorettes-navy);
+}
+
+.shorettes-btn--outline-dark:hover {
+  background-color: var(--shorettes-navy);
+  color: var(--shorettes-bone);
+}
+
+.shorettes-btn--sm {
+  min-height: 2.5rem;
+  padding-inline: 1.25rem;
+  font-size: 0.75rem;
+}
+
+.shorettes-btn:focus-visible,
+.shorettes-card-link:focus-visible {
+  outline: 3px solid var(--shorettes-orange);
+  outline-offset: 3px;
+}
+
+/* ---- Surfaces ---- */
+
+.shorettes-surface-dark {
+  background-color: var(--shorettes-navy);
+  color: var(--shorettes-bone);
+}
+
+.shorettes-surface-bone {
+  background-color: var(--shorettes-bone);
+  color: var(--shorettes-navy);
+}
+
+/* Media wrapper that reserves space before the image loads. */
+.shorettes-media {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--shorettes-navy-raised);
+}
+
+.shorettes-media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shorettes-media--zoom > img {
+    transition: transform 600ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  .shorettes-card-link:hover .shorettes-media--zoom > img {
+    transform: scale(1.04);
+  }
+}
+
+/* ==================================================================
+   2. Header refinements
+   ================================================================== */
+
+/* Announcement bar: a quiet, uppercase utility strip. */
+.announcement-bar {
+  font-family: var(--shorettes-ui-family);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shorettes-announcement-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--shorettes-space-2xs) var(--shorettes-space-md);
+}
+
+.shorettes-announcement-row__messages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--shorettes-space-2xs) var(--shorettes-space-md);
+}
+
+/* Dot separator between inline announcements. */
+.shorettes-announcement-row__messages > * + *::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-inline-end: var(--shorettes-space-md);
+  border-radius: 50%;
+  background-color: currentcolor;
+  opacity: 0.55;
+  vertical-align: middle;
+}
+
+.shorettes-announcement-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: inherit;
+  text-transform: none;
+}
+
+.shorettes-announcement-contact:hover {
+  color: var(--shorettes-orange);
+}
+
+.shorettes-announcement-contact__icon {
+  width: 0.875em;
+  height: 0.875em;
+  flex: none;
+}
+
+@media screen and (min-width: 990px) {
+  .shorettes-announcement-row {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+}
+
+/* Give the main header row room to breathe, matching the reference. */
+@media screen and (min-width: 990px) {
+  .header__row--top .header__columns {
+    column-gap: var(--shorettes-space-lg);
+  }
+}
+
+/* The navigation row reads as a distinct dark band. */
+.header__row--bottom,
+.header__navigation-bar-row {
+  font-family: var(--shorettes-ui-family);
+}
+
+.header__row--bottom .menu-list__link,
+.header__navigation-bar-row .menu-list__link {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Cart count badge picks up the signal orange. */
+.cart-bubble {
+  font-family: var(--shorettes-ui-family);
+  font-weight: 700;
+}
+
+/* In text mode Horizon hides the cart glyph on desktop. The reference pairs
+   icon and label, so restore it for the header actions only. */
+@media screen and (min-width: 750px) {
+  .header-actions--text .header-actions__cart-icon .svg-wrapper.desktop\:hidden {
+    display: inline-flex;
+  }
+
+  .header-actions--text .header-actions__cart-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ---- Inline header search ---- */
+
+.shorettes-search-inline {
+  display: none;
+  width: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  .shorettes-search-inline {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  /* The centre column carries the search field, so let it take the slack. */
+  .header__row--top .header__column--center:has(.shorettes-search-inline) {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 40rem;
+  }
+}
+
+.shorettes-search-inline predictive-search-component {
+  background-color: transparent;
+}
+
+.shorettes-search-inline .predictive-search-form__header {
+  background-color: var(--shorettes-bone);
+  border: 2px solid var(--shorettes-navy);
+  border-radius: var(--shorettes-radius-xs);
+  padding: 0;
+}
+
+.shorettes-search-inline .predictive-search-form__header-inner {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.shorettes-search-inline input.search-input {
+  padding-block: 0.8rem;
+  padding-inline: 1rem 0;
+  font-size: 0.9375rem;
+}
+
+/* The magnifier sits in a solid button-like affordance on the right. */
+.shorettes-search-inline .predictive-search__icon {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 3.25rem;
+  flex: none;
+  margin-inline-start: auto;
+  background-color: var(--shorettes-navy);
+  color: var(--shorettes-bone);
+  order: 2;
+}
+
+.shorettes-search-inline .predictive-search__reset-button {
+  order: 1;
+}
+
+.shorettes-search-inline .predictive-search-form__header:focus-within {
+  border-color: var(--shorettes-blue);
+}
+
+/* ==================================================================
+   3. Navigation menus
+   ================================================================== */
+
+.mega-menu__link {
+  font-family: var(--shorettes-ui-family);
+}
+
+.mega-menu__link--parent {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.menu-list__link--active {
+  color: var(--shorettes-orange);
+}
+
+/* ==================================================================
+   4. Footer refinements
+   ================================================================== */
+
+.shorettes-footer-tagline {
+  font-family: var(--shorettes-display-family);
+  font-size: 1.0625rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ==================================================================
+   5. Accessibility
+   ================================================================== */
+
+.shorettes-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shorettes-btn,
+  .shorettes-card-link,
+  .shorettes-media > img {
+    transition: none;
+  }
+}

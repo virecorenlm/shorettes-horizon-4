@@ -26,6 +26,13 @@
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
 
+    {%- comment -%}
+      Shorette's brand layer. Tokens first, then the stylesheet that consumes them,
+      so both cascade after Horizon's own variables and `base.css`.
+    {%- endcomment -%}
+    {%- render 'shorettes-brand-vars' -%}
+    {{ 'shorettes-brand.css' | asset_url | stylesheet_tag }}
+
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
     {% endif %}
