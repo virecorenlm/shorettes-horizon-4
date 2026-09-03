@@ -1,0 +1,26 @@
+{
+  "zoom": {
+    "clicked": true,
+    "dialogs": 1
+  },
+  "variant": {
+    "error": "Error: locator.check: Clicking the checkbox did not change its state\nCall log:\n  - waiting for getByRole('radio', { name: 'Grape Ape' })\n    - locator resolved to <input type=\"radio\" value=\"Grape Ape\" data-input-id=\"1-4\" data-input-index=\"4\" aria-label=\"Grape Ape\" data-fieldset-index=\"0\" data-option-name=\"Color\" data-option-available=\"true\" data-current-checked=\"false\" data-previous-checked=\"false\" data-connected-product-url=\"\" data-variant-id=\"47242920165596\" data-option-value-id=\"3654239584476\" name=\"Color-AcEZUK0RyWmpZS29hN__variant_picker_R3rGDr-9160389525724\"/>\n  - attempting click action\n    - scrolling into view if needed\n    - done scrolling\n    - forcing action\n    - performing click action\n    - click action done\n    - waiting for scheduled navigations to finish\n    - navigations have finished\n"
+  },
+  "add": {
+    "clicked": true,
+    "cartBubble": 0,
+    "cartText": "Cart"
+  },
+  "cart": {
+    "url": "https://shorettesbaitandtackle.com/cart?preview_id=166253986012",
+    "quantityInputs": 1,
+    "removeControls": 1,
+    "discountInputs": 1,
+    "checkoutControls": 1,
+    "body": "Cart\n1\n1\nCart total $32.99 USD\nProduct image\nProduct information\nQuantity\nProduct total\nLivingston Lures BigMakk\nColor:\nRocky Road\nPrice\n$32.99\nDecrease quantity\nIncrease quantity\nRemove\n$32.99\nDiscount\nEstimated total\n$32.99 USD\nTaxes and shipping calculated at checkout.\nCheck out\nYou may also like\nView all\nSOLD OUT\n\n105QT Fish Cooler Bag with YKK Zipper, Flat Bottom\n\n$189.99\nAdd\n\n12 Way Fuse Block Panel\n\n$25.00\nAdd\n\n12v 100Ah Bluetooth Deep Cycle Lithium Marine Battery Group 31\n\n$699.00\nSOLD O"
+  },
+  "remove": {
+    "clicked": true,
+    "empty": true
+  }
+}

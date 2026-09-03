@@ -1,0 +1,25 @@
+{
+  "badgeAfterAdd": [
+    "\n  \n  \n    \n0\n  \n",
+    "",
+    "\n    \n0\n  ",
+    "\n0"
+  ],
+  "before": {
+    "qty": "1",
+    "text": "Cart\n1\n1\nCart total $32.99 USD\nProduct image\nProduct information\nQuantity\nProduct total\nLivingston Lures BigMakk\nColor:\nRocky Road\nPrice\n$32.99\nDecrease quantity\nIncrease quantity\nRemove\n$32.99\nDiscount\nEstimated total\n$32.99 USD\nTaxes and shipping calculated at checkout.\nCheck out\nYou may also like\nView all\nSOLD OUT\n\n105QT Fish Cooler Bag with YKK"
+  },
+  "afterIncrease": {
+    "qty": "2",
+    "text": "Cart\n2\n2\nCart total $65.98 USD\nProduct image\nProduct information\nQuantity\nProduct total\nLivingston Lures BigMakk\nColor:\nRocky Road\nPrice\n$32.99\nDecrease quantity\nIncrease quantity\nRemove\n$65.98\nDiscount\nEstimated total\n$65.98 USD\nTaxes and shipping calculated at checkout.\nCheck out\nYou may also like\nView all\nSOLD OUT\n\n105QT Fish Cooler Bag with YKK"
+  },
+  "afterRemove": {
+    "empty": true,
+    "badge": [
+      "\n  \n  \n    0\n  \n",
+      "",
+      "\n    0\n  ",
+      "0"
+    ]
+  }
+}
