@@ -121,17 +121,17 @@ parent at `hoodies` instead, as in the level‑1 table.
 Shopify's built‑in vendor route resolves without any collection being created:
 `/collections/vendors?q=<Vendor+Name>`.
 
-| Order | Label | Destination | Products |
+| Order | Label | Destination | Published products |
 |---|---|---|---|
-| 1 | Livingston Lures | `/collections/vendors?q=Livingston+Lures` | 167 |
-| 2 | Monster Marine Lithium | `/collections/vendors?q=Monster+Marine+Lithium` | 73 |
-| 3 | Headbanger Lures | `/collections/vendors?q=Headbanger+Lures` | 51 |
-| 4 | Beyond Braid | `/collections/vendors?q=Beyond+Braid` | 38 |
-| 5 | Berkley | `/collections/vendors?q=Berkley` | 15 |
-| 6 | Rapala | `/collections/vendors?q=Rapala` | 14 |
+| 1 | Livingston Lures | `/collections/vendors?q=Livingston+Lures` | 81 |
+| 2 | Flymen Fishing Company | `/collections/vendors?q=Flymen+Fishing+Company` | 50 |
+| 3 | Headbanger Lures | `/collections/vendors?q=Headbanger+Lures` | 48 |
+| 4 | Monster Marine Lithium | `/collections/vendors?q=Monster+Marine+Lithium` | 45 |
+| 5 | Beyond Braid | `/collections/vendors?q=Beyond+Braid` | 37 |
+| 6 | KISTLER Fishing | `/collections/vendors?q=KISTLER+Fishing` | 30 |
 | 7 | Natives Fly Fishing | `/collections/vendors?q=Natives+Fly+Fishing` | 11 |
 | 8 | Savage Gear | `/collections/vendors?q=Savage+Gear` | 8 |
-| 9 | KISTLER Fishing | `/collections/vendors?q=KISTLER+Fishing` | 30 |
+| 9 | Berkley | `/collections/vendors?q=Berkley` | 4 |
 | 10 | View All Brands | `/pages/view-all-brands` | ⚠ **PUBLISH FIRST** — page exists but is unpublished |
 
 > ⚠ **Vendor routes only resolve when a vendor has published products.**
