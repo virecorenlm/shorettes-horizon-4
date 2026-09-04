@@ -131,8 +131,16 @@ Shopify's built‑in vendor route resolves without any collection being created:
 | 6 | Rapala | `/collections/vendors?q=Rapala` | 14 |
 | 7 | Natives Fly Fishing | `/collections/vendors?q=Natives+Fly+Fishing` | 11 |
 | 8 | Savage Gear | `/collections/vendors?q=Savage+Gear` | 8 |
-| 9 | Eagle Claw | `/collections/vendors?q=Eagle+Claw` | 8 |
-| 10 | View All Brands | `/pages/brands` | ⚠ CREATE FIRST |
+| 9 | KISTLER Fishing | `/collections/vendors?q=KISTLER+Fishing` | 30 |
+| 10 | View All Brands | `/pages/view-all-brands` | ⚠ **PUBLISH FIRST** — page exists but is unpublished |
+
+> ⚠ **Vendor routes only resolve when a vendor has published products.**
+> `Rapala` (14 products, **0 published**) and `Eagle Claw` (8 products, **0 published**)
+> both return **404** and must not be linked. Verified published counts:
+> Livingston Lures 81 · Flymen Fishing Company 50 · Headbanger Lures 48 ·
+> Monster Marine Lithium 45 · Shorette's Bait And Tackle 40 · Beyond Braid 37 ·
+> KISTLER Fishing 30 · Natives Fly Fishing 11 · Savage Gear 8 · Line Cutterz 6 ·
+> Berkley 4 · Chaos Tackle 4 · Storm 4.
 
 The store carries **113 vendors**. Shimano, St. Croix, Daiwa, Garmin, Spro and Abu Garcia
 appear in the mockup's logo strip but **are not vendors in this store** — do not add them.

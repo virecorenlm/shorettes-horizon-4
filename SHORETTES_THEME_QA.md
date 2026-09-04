@@ -37,14 +37,14 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 |---|---|---|---|
 | 11 | Announcement bar shows all three messages side by side with dot separators | ✅ | Three announcement blocks render side-by-side in live preview with dot separators. |
 | 12 | Announcement contact text appears right-aligned once set | ✅ | Contact markup follows the announcements and desktop row CSS uses `justify-content: space-between`; field is currently blank. |
-| 13 | Header top row is bone `#F4F1E8`; navigation row is navy `#0B171D` | ❌ | FAIL: checklist expects `#F4F1E8` / `#0B171D`; committed settings are `#f8f3ed` / `#17191a`. |
-| 14 | Logo renders at 88px tall and is not stretched | ❌ | FAIL: global logo height is configured as 72px, not 88px (`config/settings_data.json`). |
+| 13 | Header top row is `#F8F3ED`; navigation row is charcoal `#17191A` | ❌ | FAIL: checklist expects `#F4F1E8` / `#0B171D`; committed settings are `#f8f3ed` / `#17191a`. |
+| 14 | Logo renders at 72px tall and is not stretched | ❌ | FAIL: global logo height is configured as 72px, not 88px (`config/settings_data.json`). |
 | 15 | Search field is centred, spans the free space, capped at 40rem | ✅ | Search occupies the center free space and is capped at 40rem in `assets/shorettes-brand.css`. |
-| 16 | Cart badge is orange with white text **[R]** | ✅ | Configured cart badge colors are `#d21404` with `#ffffff` text. |
+| 16 | Cart badge is Shorette's red `#D21404` with white text **[R]** | ✅ | Configured cart badge colors are `#d21404` with `#ffffff` text. |
 | 17 | Cart icon **and** the "Cart" label both show | ✅ | Live desktop preview shows both cart glyph and “Cart” label. |
 | 18 | Sticky header hides on scroll down and returns on scroll up **[R]** | ☐ | Scroll-up sticky mode is configured, but hide/return behavior still needs a real scroll test. |
 | 19 | Hero headline uses the condensed display face, uppercase | ✅ | Enabled custom hero renders an uppercase condensed display heading. |
-| 20 | Orange primary CTA, outlined secondary CTA; both hover correctly | ✅ | Primary and outlined CTA classes and hover styles are present in `shorettes-hero.liquid` / brand CSS. |
+| 20 | Red primary CTA, outlined secondary CTA; both hover correctly | ✅ | Primary and outlined CTA classes and hover styles are present in `shorettes-hero.liquid` / brand CSS. |
 
 ## Tablet (768–1024px)
 
@@ -79,7 +79,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 | 37 | Slime Time product list shows real products with prices **[R]** | ✅ | Fixed 2026-09-03: both `product_list_fa6P9H` collection references now use `slime-time`; live preview renders products and prices from the 45-product collection. |
 | 38 | The old hero and four empty placeholders do **not** render (disabled) | ✅ | Old hero and four placeholder `_blocks` sections are disabled in `templates/index.json`. |
 | 39 | Unlinked species and Lures show but are not clickable — no dead links | ✅ | Blank species/Lures destinations render as `<span>`, not dead anchors. |
-| 40 | Tiles without images show solid navy with legible text, not a broken image | ✅ | Missing tile images omit `<img>` and retain navy background with legible white text. |
+| 40 | Tiles without images show solid black with legible text, not a broken image | ✅ | Missing tile images omit `<img>` and retain navy background with legible white text. |
 | 41 | Brand wordmarks render where no logo is uploaded | ✅ | Brand blocks without uploaded logos render text wordmarks. |
 
 ## Navigation
@@ -89,7 +89,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 | 42 | Every top-level item comes from the configured header menu; nothing is hardcoded **[R]** | ✅ | Header now uses dedicated `horizon-4-main-menu`; desktop and drawer markup iterate the configured linklist, with no hardcoded menu labels. |
 | 43 | Dropdowns open on hover and on keyboard focus **[R]** | ☐ | Hover/focus code exists, but the automated hover probe did not expose the submenu; requires direct keyboard/mouse confirmation. |
 | 44 | Mega-menu columns align and do not overflow the viewport | ☐ | Requires a visual pass with each dropdown open. |
-| 45 | Active page link shows the orange active state | ✅ | Active links receive `menu-list__link--active`, styled with the signal orange/red token. |
+| 45 | Active page link shows the red active state | ✅ | Active links receive `menu-list__link--active`, styled with the signal orange/red token. |
 | 46 | Tab order runs logo → search → account → cart → nav; no focus traps | ☐ | Requires complete keyboard traversal in the rendered preview. |
 | 47 | Escape closes an open dropdown and returns focus to its trigger **[R]** | ☐ | Escape/focus-return code exists but requires a live interaction test. |
 
@@ -114,7 +114,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 | 57 | Gallery, zoom and thumbnails work **[R]** | ✅ | Live BigMakk page rendered seven media controls; clicking “Zoom media 1” opened one dialog. |
 | 58 | Variant picker switches variants; price and image update **[R]** | ❌ | FAIL: selecting available “Grape Ape” did not change the checked variant in either browser test path. |
 | 59 | Add to cart works and the drawer opens **[R]** | ❌ | FAIL: Add to Cart added the item, but the configured cart drawer did not open. |
-| 60 | Sale badge is orange with white text and readable | ✅ | Sale badge is configured `#d21404` with white text. |
+| 60 | Sale badge is Shorette's red with white text and readable | ✅ | Sale badge is configured `#d21404` with white text. |
 | 61 | **Sold-out badge text is visible** (was invisible before this work) | ✅ | Sold-out badge has explicit dark background and white text. |
 | 62 | Compare-at price shows struck through **[R]** | ✅ | Compare-at price uses `<s>` with line-through styling. |
 | 63 | Inventory messaging and accelerated checkout render **[R]** | ❌ | FAIL: accelerated checkout renders, but the active product block order contains no inventory-message block. |
@@ -157,7 +157,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 
 | # | Check | ✓ | Vire's Notes |
 |---|---|---|---|
-| 83 | Inverse logo renders legibly on navy | ☐ | Inverse logo is configured and rendered; final legibility remains a human visual judgment. |
+| 83 | Inverse logo renders legibly on black | ☐ | Inverse logo is configured and rendered; final legibility remains a human visual judgment. |
 | 84 | Tagline "BUILT FOR THE WATER WE FISH." shows in the display face | ✅ | Exact tagline is configured uppercase in the display font. |
 | 85 | Shop and Customer service menus populate from their linklists **[R]** | ✅ | Live preview shows populated Shop and Customer service linklists. |
 | 86 | Newsletter form submits and confirms **[R]** | ☐ | Newsletter form renders; submission would create customer/contact data and was not performed. |
@@ -165,7 +165,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 | 88 | Policy links resolve to the real Shopify policy pages **[R]** | ☐ | Policy disclosure renders; each live policy destination still needs clicking. |
 | 89 | Payment icons render | ✅ | Live preview rendered American Express, Apple Pay, Bancontact, Diners Club, Discover, Google Pay, Mastercard, PayPal, Shop Pay and Visa icons. |
 | 90 | Copyright and "Powered by Shopify" show **[R]** | ✅ | Live footer shows copyright and Powered by Shopify. |
-| 91 | All footer text meets contrast on navy | ☐ | Core palette passes AA, but complete footer/app-injected text still needs a visual contrast pass. |
+| 91 | All footer text meets contrast on black | ☐ | Core palette passes AA, but complete footer/app-injected text still needs a visual contrast pass. |
 
 ## Accessibility
 
@@ -180,7 +180,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 | 98 | Tile overlay links are `aria-hidden` with `tabindex="-1"`; the visible CTA is what screen readers announce | ✅ | Tile overlays use `aria-hidden="true"` and `tabindex="-1"`; visible CTAs remain normal anchors. |
 | 99 | Decorative SVG icons are `aria-hidden="true"`; labels carry the meaning | ❌ | FAIL: enabled blog block contains decorative calendar, author and arrow SVGs without `aria-hidden="true"`. |
 | 100 | Uploaded images have meaningful alt text | ✅ | Live audit found meaningful alt text on content/product images. Empty alt attributes belonged only to decorative Instafeed icons. |
-| 101 | Contrast ≥4.5:1 for body text — check orange on white, bone on navy, slate on white | ✅ | Measured ratios: orange/white 5.466:1, bone/navy 16+:1, slate/white 4.829:1. |
+| 101 | Contrast ≥4.5:1 for body text — check red on white, white on black, slate on white | ✅ | Measured ratios: orange/white 5.466:1, bone/navy 16+:1, slate/white 4.829:1. |
 | 102 | `prefers-reduced-motion` suppresses the tile hover zoom | ✅ | Tile zoom is gated by `prefers-reduced-motion: no-preference`; reduced mode removes image transitions. |
 | 103 | Screen-reader pass over the header, nav and home page | ☐ | Requires a real screen-reader pass. |
 
