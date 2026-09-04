@@ -11,6 +11,7 @@
   "sections": {
     "1766099948839f0bac": {
       "type": "_blocks",
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -37,11 +38,11 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      },
-      "disabled": true
+      }
     },
     "1766011629720e99cd": {
       "type": "_blocks",
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -68,11 +69,11 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      },
-      "disabled": true
+      }
     },
     "17659924951d04f9a6": {
       "type": "_blocks",
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -99,8 +100,7 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      },
-      "disabled": true
+      }
     },
     "hero_jVaWmY": {
       "type": "hero",
@@ -127,6 +127,7 @@
       "block_order": [
         "button_RpQ9L9"
       ],
+      "disabled": true,
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
@@ -158,8 +159,7 @@
         "reflection_opacity": 75,
         "padding-block-start": 100,
         "padding-block-end": 72
-      },
-      "disabled": true
+      }
     },
     "product_list_fa6P9H": {
       "type": "product-list",
@@ -816,6 +816,7 @@
     },
     "176653759330716849": {
       "type": "_blocks",
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -842,8 +843,7 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      },
-      "disabled": true
+      }
     },
     "shorettes_hero": {
       "type": "shorettes-hero",
@@ -877,8 +877,7 @@
             "icon": "musky",
             "label": "Musky",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_2": {
           "type": "species",
@@ -886,8 +885,7 @@
             "icon": "bass",
             "label": "Bass",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_3": {
           "type": "species",
@@ -895,8 +893,7 @@
             "icon": "walleye",
             "label": "Walleye",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_4": {
           "type": "species",
@@ -904,8 +901,7 @@
             "icon": "pike",
             "label": "Pike",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_5": {
           "type": "species",
@@ -913,8 +909,7 @@
             "icon": "panfish",
             "label": "Panfish",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_6": {
           "type": "species",
@@ -922,8 +917,7 @@
             "icon": "trout",
             "label": "Trout",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_7": {
           "type": "category",
@@ -931,8 +925,7 @@
             "icon": "lures",
             "label": "Lures",
             "link": ""
-          },
-          "blocks": {}
+          }
         },
         "catnav_8": {
           "type": "category",
@@ -940,8 +933,7 @@
             "icon": "rods-reels",
             "label": "Rods & reels",
             "link": "/collections/rods-reels-rod-racks"
-          },
-          "blocks": {}
+          }
         },
         "catnav_9": {
           "type": "category",
@@ -949,8 +941,7 @@
             "icon": "terminal-tackle",
             "label": "Terminal tackle",
             "link": "/collections/terminal-tackle"
-          },
-          "blocks": {}
+          }
         },
         "catnav_10": {
           "type": "category",
@@ -958,8 +949,7 @@
             "icon": "marine",
             "label": "Marine",
             "link": "/collections/marine-batteries-accessories"
-          },
-          "blocks": {}
+          }
         },
         "catnav_11": {
           "type": "category",
@@ -967,8 +957,7 @@
             "icon": "apparel",
             "label": "Apparel",
             "link": "/collections/apparel"
-          },
-          "blocks": {}
+          }
         },
         "catnav_12": {
           "type": "category",
@@ -976,8 +965,7 @@
             "icon": "kids",
             "label": "Kids",
             "link": "/collections/kids-zone"
-          },
-          "blocks": {}
+          }
         }
       },
       "block_order": [
@@ -1015,21 +1003,19 @@
             "link": "",
             "accent": "default",
             "overlay_opacity": 55
-          },
-          "blocks": {}
+          }
         },
         "tile_2": {
           "type": "tile",
           "settings": {
+            "collection": "slime-time",
             "heading": "Slime time",
             "text": "Loud colors. Big attitude. Fish can't resist.",
             "button_label": "Shop Slime Time",
             "link": "/collections/slime-time",
             "accent": "slime",
-            "overlay_opacity": 60,
-            "collection": "slime-time"
-          },
-          "blocks": {}
+            "overlay_opacity": 60
+          }
         },
         "tile_3": {
           "type": "tile",
@@ -1040,21 +1026,19 @@
             "link": "",
             "accent": "default",
             "overlay_opacity": 55
-          },
-          "blocks": {}
+          }
         },
         "tile_4": {
           "type": "tile",
           "settings": {
+            "collection": "frontpage",
             "heading": "New\narrivals",
             "text": "The latest gear from the best brands.",
             "button_label": "Shop new",
             "link": "/collections/all?sort_by=created-descending",
             "accent": "default",
-            "overlay_opacity": 55,
-            "collection": "frontpage"
-          },
-          "blocks": {}
+            "overlay_opacity": 55
+          }
         },
         "tile_5": {
           "type": "tile",
@@ -1065,8 +1049,7 @@
             "link": "/collections/all?sort_by=best-selling",
             "accent": "default",
             "overlay_opacity": 55
-          },
-          "blocks": {}
+          }
         }
       },
       "block_order": [
@@ -1093,64 +1076,56 @@
           "settings": {
             "name": "Rapala",
             "link": "/collections/vendors?q=Rapala"
-          },
-          "blocks": {}
+          }
         },
         "brand_2": {
           "type": "brand",
           "settings": {
             "name": "Berkley",
             "link": "/collections/vendors?q=Berkley"
-          },
-          "blocks": {}
+          }
         },
         "brand_3": {
           "type": "brand",
           "settings": {
             "name": "Livingston Lures",
             "link": "/collections/vendors?q=Livingston+Lures"
-          },
-          "blocks": {}
+          }
         },
         "brand_4": {
           "type": "brand",
           "settings": {
             "name": "Headbanger Lures",
             "link": "/collections/vendors?q=Headbanger+Lures"
-          },
-          "blocks": {}
+          }
         },
         "brand_5": {
           "type": "brand",
           "settings": {
             "name": "Savage Gear",
             "link": "/collections/vendors?q=Savage+Gear"
-          },
-          "blocks": {}
+          }
         },
         "brand_6": {
           "type": "brand",
           "settings": {
             "name": "Beyond Braid",
             "link": "/collections/vendors?q=Beyond+Braid"
-          },
-          "blocks": {}
+          }
         },
         "brand_7": {
           "type": "brand",
           "settings": {
             "name": "Monster Marine Lithium",
             "link": "/collections/vendors?q=Monster+Marine+Lithium"
-          },
-          "blocks": {}
+          }
         },
         "brand_8": {
           "type": "brand",
           "settings": {
             "name": "Natives Fly Fishing",
             "link": "/collections/vendors?q=Natives+Fly+Fishing"
-          },
-          "blocks": {}
+          }
         }
       },
       "block_order": [
@@ -1182,8 +1157,7 @@
             "icon": "shipping",
             "heading": "Fast shipping",
             "text": "Orders ship same or next business day."
-          },
-          "blocks": {}
+          }
         },
         "trust_2": {
           "type": "item",
@@ -1191,8 +1165,7 @@
             "icon": "secure",
             "heading": "Secure checkout",
             "text": "Safe & secure shopping experience."
-          },
-          "blocks": {}
+          }
         },
         "trust_3": {
           "type": "item",
@@ -1200,8 +1173,7 @@
             "icon": "angler",
             "heading": "Angler owned",
             "text": "We fish it, so we sell it."
-          },
-          "blocks": {}
+          }
         },
         "trust_4": {
           "type": "item",
@@ -1209,8 +1181,7 @@
             "icon": "support",
             "heading": "Real customer support",
             "text": "Local help from people who care."
-          },
-          "blocks": {}
+          }
         }
       },
       "block_order": [
