@@ -876,7 +876,7 @@
           "settings": {
             "icon": "musky",
             "label": "Musky",
-            "link": ""
+            "link": "/collections/musky"
           }
         },
         "catnav_2": {
@@ -884,7 +884,7 @@
           "settings": {
             "icon": "bass",
             "label": "Bass",
-            "link": ""
+            "link": "/collections/bass"
           }
         },
         "catnav_3": {
@@ -892,7 +892,7 @@
           "settings": {
             "icon": "walleye",
             "label": "Walleye",
-            "link": ""
+            "link": "/collections/walleye"
           }
         },
         "catnav_4": {
@@ -900,7 +900,7 @@
           "settings": {
             "icon": "pike",
             "label": "Pike",
-            "link": ""
+            "link": "/collections/pike"
           }
         },
         "catnav_5": {
@@ -908,7 +908,7 @@
           "settings": {
             "icon": "panfish",
             "label": "Panfish",
-            "link": ""
+            "link": "/collections/panfish"
           }
         },
         "catnav_6": {
@@ -916,7 +916,7 @@
           "settings": {
             "icon": "trout",
             "label": "Trout",
-            "link": ""
+            "link": "/collections/trout"
           }
         },
         "catnav_7": {
@@ -1002,7 +1002,8 @@
             "button_label": "Shop originals",
             "link": "",
             "accent": "default",
-            "overlay_opacity": 55
+            "overlay_opacity": 55,
+            "collection": "shorettes-originals"
           }
         },
         "tile_2": {
@@ -1023,7 +1024,7 @@
             "heading": "Community\ncatches",
             "text": "Real anglers. Real fish. Real stories.",
             "button_label": "View catches",
-            "link": "",
+            "link": "/pages/community-catches",
             "accent": "default",
             "overlay_opacity": 55
           }
@@ -1074,8 +1075,8 @@
         "brand_1": {
           "type": "brand",
           "settings": {
-            "name": "Rapala",
-            "link": "/collections/vendors?q=Rapala"
+            "name": "KISTLER Fishing",
+            "link": "/collections/vendors?q=KISTLER+Fishing"
           }
         },
         "brand_2": {
@@ -1140,8 +1141,8 @@
       ],
       "settings": {
         "heading": "Shop top brands",
-        "view_all_label": "",
-        "view_all_link": "",
+        "view_all_label": "View all brands",
+        "view_all_link": "/pages/view-all-brands",
         "background_color": "#FFFFFF",
         "logo_height": 34,
         "padding-block-start": 28,
