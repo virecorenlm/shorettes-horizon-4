@@ -1,0 +1,74 @@
+{
+  "audit": "Horizon-4 Shopify storefront data actions",
+  "theme_id": 166253986012,
+  "pages": {
+    "community-catches": {
+      "published": true,
+      "url": "https://shorettesbaitandtackle.com/pages/community-catches",
+      "http_status": 200
+    },
+    "view-all-brands": {
+      "published": true,
+      "url": "https://shorettesbaitandtackle.com/pages/view-all-brands",
+      "http_status": 200
+    }
+  },
+  "empty_collections": {
+    "new-arrivals": {
+      "products": 0,
+      "rule_set": null,
+      "decision": "Leave empty; homepage uses /collections/all?sort_by=created-descending"
+    },
+    "best-sellers": {
+      "products": 0,
+      "rule_set": null,
+      "decision": "Leave empty; homepage uses /collections/all?sort_by=best-selling"
+    }
+  },
+  "vendor_drafts": {
+    "Rapala": {
+      "products": 14,
+      "drafts": 14,
+      "featured_images_missing": 14,
+      "descriptions_missing": 14,
+      "inventory_present": true,
+      "decision": "Keep draft pending catalog completion; no evidence brand is discontinued"
+    },
+    "Eagle Claw": {
+      "products": 8,
+      "drafts": 8,
+      "featured_images_missing": 8,
+      "descriptions_missing": 8,
+      "inventory_present": true,
+      "decision": "Keep draft pending catalog completion; no evidence brand is discontinued"
+    }
+  },
+  "product_list_fa6P9H": {
+    "heading": "Experience the Fun of SLIME TIME!",
+    "before": {
+      "outer_collection": "hoodies",
+      "inner_collection": "frontpage"
+    },
+    "after": {
+      "outer_collection": "slime-time",
+      "inner_collection": "slime-time"
+    },
+    "live_verified": true,
+    "live_collection_product_count": 45
+  },
+  "disabled_blocks": {
+    "Social proof": {
+      "kept_disabled": true,
+      "reason": "Contains manually entered follower/customer counts that are not verified and would add duplicated proof UI"
+    },
+    "New arrivals": {
+      "kept_disabled": true,
+      "reason": "Homepage already has a New Arrivals feature tile linked to Shopify's working created-descending catalog sort; re-enabling would duplicate the section"
+    }
+  },
+  "untouched": [
+    "theme colors",
+    "header configuration",
+    "navigation menu"
+  ]
+}

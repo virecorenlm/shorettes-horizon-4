@@ -76,7 +76,7 @@ Check each at 1440, 1280, 1024, 768 and 390 px.
 | 34 | **Community Catches renders exactly as before** **[R]** | ☐ | Community Catches renders, but “exactly as before” requires comparison with the old theme. |
 | 35 | **Instafeed loads and shows posts** **[R]** | ✅ | Live preview loaded 10 current Instafeed posts and post-dialog markup. Theme Check’s local `JSONMissingBlock` warning is an app-extension false positive for the live theme. |
 | 36 | New Arrivals, Social proof, YouTube and the three blog blocks all render **[R]** | ❌ | FAIL: New Arrivals and Social proof blocks are explicitly disabled in `templates/index.json`; the combined requirement cannot pass. |
-| 37 | Slime Time product list shows real products with prices **[R]** | ❌ | FAIL: the area labeled Slime Time is configured against `frontpage` and `hoodies`, not the `slime-time` collection. |
+| 37 | Slime Time product list shows real products with prices **[R]** | ✅ | Fixed 2026-09-03: both `product_list_fa6P9H` collection references now use `slime-time`; live preview renders products and prices from the 45-product collection. |
 | 38 | The old hero and four empty placeholders do **not** render (disabled) | ✅ | Old hero and four placeholder `_blocks` sections are disabled in `templates/index.json`. |
 | 39 | Unlinked species and Lures show but are not clickable — no dead links | ✅ | Blank species/Lures destinations render as `<span>`, not dead anchors. |
 | 40 | Tiles without images show solid navy with legible text, not a broken image | ✅ | Missing tile images omit `<img>` and retain navy background with legible white text. |
@@ -232,10 +232,10 @@ that existed before this redesign; a failure there is a regression, not a missin
 
 ## Audit Summary (2026-09-03)
 
-- **Passed:** 62 / 120
-- **Failed:** 15 / 120
+- **Passed:** 63 / 120
+- **Failed:** 14 / 120
 - **Manual or not yet verified:** 43 / 120
-- **Regression failures [R]:** #36, #37, #56, #58, #59, #63, #78, #94, #99, #110, #119
+- **Regression failures [R]:** #36, #56, #58, #59, #63, #78, #94, #99, #110, #119
 - **Do not publish yet.** Resolve every failed `[R]` item, then finish the remaining regression checks.
 
 ## Evidence Artifacts
@@ -244,6 +244,7 @@ that existed before this redesign; a failure there is a regression, not a missin
 - `qa-artifacts/product-cart-interactions.json` — product zoom, variant and initial cart test
 - `qa-artifacts/cart-detail.json` — quantity, total, remove and badge-state test
 - `qa-artifacts/home-link-crawl.json` — 47-link homepage crawl
+- `qa-artifacts/storefront-data-actions-20260903.json` — page publication, collection/vendor decisions and Slime Time correction
 - `qa-artifacts/home-1440.png`, `home-1280.png`, `home-1024.png`, `home-768.png`, `home-390.png` — rendered preview screenshots
 
 ## Confirmed Failures
@@ -251,16 +252,15 @@ that existed before this redesign; a failure there is a regression, not a missin
 1. Header colors differ from the checklist specification (#13).
 2. Logo is configured at 72px rather than 88px (#14).
 3. New Arrivals and Social proof blocks are disabled (#36).
-4. The section labeled Slime Time points to `frontpage`/`hoodies`, not `slime-time` (#37).
-5. Console is not clean (#56/#119).
-6. Available product variant did not switch (#58).
-7. Add to Cart does not open the configured drawer (#59).
-8. Product template has no inventory-message block (#63).
-9. Cart badge remains 0 after a successful add (#78).
-10. Community Catches suppresses a true focus ring (#94).
-11. Enabled blog block has decorative SVGs missing `aria-hidden` (#99).
-12. Rapala brand-strip destination returns 404 (#110).
-13. Active custom hero has no image, so eager hero loading/mobile srcset cannot pass (#113/#114).
+4. Console is not clean (#56/#119).
+5. Available product variant did not switch (#58).
+6. Add to Cart does not open the configured drawer (#59).
+7. Product template has no inventory-message block (#63).
+8. Cart badge remains 0 after a successful add (#78).
+9. Community Catches suppresses a true focus ring (#94).
+10. Enabled blog block has decorative SVGs missing `aria-hidden` (#99).
+11. Rapala brand-strip destination returns 404 (#110).
+12. Active custom hero has no image, so eager hero loading/mobile srcset cannot pass (#113/#114).
 
 ## Theme Check
 

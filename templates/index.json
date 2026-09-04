@@ -199,7 +199,7 @@
             "ai_gen_block_4a9ff64_MET4gh": {
               "type": "ai_gen_block_4a9ff64",
               "settings": {
-                "collection": "frontpage",
+                "collection": "slime-time",
                 "products_to_show": 12,
                 "heading": "Experience the Fun of SLIME TIME!",
                 "description": "",
@@ -363,7 +363,7 @@
       },
       "name": "Featured collection",
       "settings": {
-        "collection": "hoodies",
+        "collection": "slime-time",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 8,
