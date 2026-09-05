@@ -9,156 +9,233 @@
  */
 {
   "sections": {
-    "1766099948839f0bac": {
-      "type": "_blocks",
-      "disabled": true,
+    "shorettes_hero": {
+      "type": "shorettes-hero",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
+        "eyebrow": "Shorette's Bait & Tackle",
+        "heading": "Built for the\nwater we fish.",
+        "heading_tag": "h2",
+        "body": "Musky, bass, walleye and everyday fishing gear from the St. Lawrence country.",
+        "button_1_label": "Shop baits",
+        "button_1_link": "/collections/all",
+        "button_2_label": "Shop new arrivals",
+        "button_2_link": "/collections/all?sort_by=created-descending",
+        "show_badge": true,
+        "badge_text": "Local water.\nLocal knowledge.\nBetter fishing.",
+        "badge_label": "St. Lawrence Country",
+        "image": "shopify://shop_images/updated_hero.png",
+        "overlay_color": "#0a0a0a",
+        "overlay_opacity": 70,
+        "overlay_style": "gradient_right",
+        "section_height": "small",
+        "section_height_custom": 70,
         "padding-block-start": 0,
         "padding-block-end": 0
       }
     },
-    "1766011629720e99cd": {
-      "type": "_blocks",
-      "disabled": true,
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "17659924951d04f9a6": {
-      "type": "_blocks",
-      "disabled": true,
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "hero_jVaWmY": {
-      "type": "hero",
+    "shorettes_category_nav": {
+      "type": "shorettes-category-nav",
       "blocks": {
-        "button_RpQ9L9": {
-          "type": "button",
-          "name": "t:names.button",
+        "catnav_1": {
+          "type": "species",
           "settings": {
-            "label": "Shop now",
-            "link": "shopify://collections/slime-time",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.color7 }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "icon": "musky",
+            "label": "Musky",
+            "link": "/collections/musky"
+          }
+        },
+        "catnav_2": {
+          "type": "species",
+          "settings": {
+            "icon": "bass",
+            "label": "Bass",
+            "link": "/collections/bass"
+          }
+        },
+        "catnav_3": {
+          "type": "species",
+          "settings": {
+            "icon": "walleye",
+            "label": "Walleye",
+            "link": "/collections/walleye"
+          }
+        },
+        "catnav_4": {
+          "type": "species",
+          "settings": {
+            "icon": "pike",
+            "label": "Pike",
+            "link": "/collections/pike"
+          }
+        },
+        "catnav_5": {
+          "type": "species",
+          "settings": {
+            "icon": "panfish",
+            "label": "Panfish",
+            "link": "/collections/panfish"
+          }
+        },
+        "catnav_6": {
+          "type": "species",
+          "settings": {
+            "icon": "trout",
+            "label": "Trout",
+            "link": "/collections/trout"
+          }
+        },
+        "catnav_7": {
+          "type": "category",
+          "settings": {
+            "icon": "lures",
+            "label": "Lures",
+            "link": ""
+          }
+        },
+        "catnav_8": {
+          "type": "category",
+          "settings": {
+            "icon": "rods-reels",
+            "label": "Rods & reels",
+            "link": "/collections/rods-reels-rod-racks"
+          }
+        },
+        "catnav_9": {
+          "type": "category",
+          "settings": {
+            "icon": "terminal-tackle",
+            "label": "Terminal tackle",
+            "link": "/collections/terminal-tackle"
+          }
+        },
+        "catnav_10": {
+          "type": "category",
+          "settings": {
+            "icon": "marine",
+            "label": "Marine",
+            "link": "/collections/marine-batteries-accessories"
+          }
+        },
+        "catnav_11": {
+          "type": "category",
+          "settings": {
+            "icon": "apparel",
+            "label": "Apparel",
+            "link": "/collections/apparel"
+          }
+        },
+        "catnav_12": {
+          "type": "category",
+          "settings": {
+            "icon": "kids",
+            "label": "Kids",
+            "link": "/collections/kids-zone"
+          }
         }
       },
       "block_order": [
-        "button_RpQ9L9"
+        "catnav_1",
+        "catnav_2",
+        "catnav_3",
+        "catnav_4",
+        "catnav_5",
+        "catnav_6",
+        "catnav_7",
+        "catnav_8",
+        "catnav_9",
+        "catnav_10",
+        "catnav_11",
+        "catnav_12"
       ],
-      "disabled": true,
-      "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/rn-image_picker_lib_temp_e649101d-8ed8-422b-a9ad-3edaefb10bec.png",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "toggle_overlay": true,
-        "overlay_color": "#00000003",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "species_heading": "Shop by species",
+        "category_heading": "Shop by category",
+        "background_color": "#ffffff",
+        "text_color": "#0a0a0a",
+        "padding-block-start": 36,
+        "padding-block-end": 28
+      }
+    },
+    "shorettes_feature_tiles": {
+      "type": "shorettes-feature-tiles",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "collection": "shorettes-originals",
+            "heading": "Shorette's\noriginals",
+            "text": "Custom lures. Built by anglers for anglers.",
+            "button_label": "Shop originals",
+            "link": "",
+            "accent": "default",
+            "overlay_opacity": 55
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "collection": "slime-time",
+            "heading": "Slime time",
+            "text": "Loud colors. Big attitude. Fish can't resist.",
+            "button_label": "Shop Slime Time",
+            "link": "/collections/slime-time",
+            "accent": "slime",
+            "overlay_opacity": 60
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/Screenshot_2025-12-21_164410_ccd52633-2c46-43fb-86fb-8002bebc2a32.png",
+            "heading": "Community\ncatches",
+            "text": "Real anglers. Real fish. Real stories.",
+            "button_label": "View catches",
+            "link": "/pages/community-catches",
+            "accent": "default",
+            "overlay_opacity": 55
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "collection": "frontpage",
+            "heading": "New\narrivals",
+            "text": "The latest gear from the best brands.",
+            "button_label": "Shop new",
+            "link": "/collections/all?sort_by=created-descending",
+            "accent": "default",
+            "overlay_opacity": 55
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/f88d41c3-9809-47ad-8640-2541a1397b2b.jpg",
+            "heading": "Best\nsellers",
+            "text": "Proven winners that get it done.",
+            "button_label": "Shop best sellers",
+            "link": "/collections/all?sort_by=best-selling",
+            "accent": "default",
+            "overlay_opacity": 55
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#ffffff",
+        "tile_height": 260,
+        "gap": 12,
+        "padding-block-start": 8,
+        "padding-block-end": 40
       }
     },
     "product_list_fa6P9H": {
@@ -184,11 +261,13 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -244,6 +323,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -261,6 +341,10 @@
                 "label": "View all",
                 "open_in_new_tab": false,
                 "style_class": "button-unstyled",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
@@ -281,9 +365,11 @@
           "static": true,
           "settings": {
             "product_card_gap": 4,
+            "background_color": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -299,6 +385,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -321,6 +408,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -346,6 +434,7 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "text_color": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -400,6 +489,7 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
+            "text_color": "",
             "background": true,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -430,6 +520,7 @@
         },
         "ai_gen_block_94b69a6_688ANb": {
           "type": "ai_gen_block_94b69a6",
+          "disabled": true,
           "settings": {
             "heading": "Community Catches",
             "description": "Check out amazing catches from our fishing community",
@@ -809,264 +900,10 @@
         "border": "none",
         "border_width": 1,
         "border_opacity": 100,
+        "border_color": "",
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
-    },
-    "176653759330716849": {
-      "type": "_blocks",
-      "disabled": true,
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "shorettes_hero": {
-      "type": "shorettes-hero",
-      "settings": {
-        "eyebrow": "Shorette's Bait & Tackle",
-        "heading": "Built for the\nwater we fish.",
-        "heading_tag": "h2",
-        "body": "Musky, bass, walleye and everyday fishing gear from the St. Lawrence country.",
-        "button_1_label": "Shop baits",
-        "button_1_link": "/collections/all",
-        "button_2_label": "Shop new arrivals",
-        "button_2_link": "/collections/all?sort_by=created-descending",
-        "show_badge": true,
-        "badge_text": "Local water.\nLocal knowledge.\nBetter fishing.",
-        "badge_label": "St. Lawrence Country",
-        "overlay_color": "#0A0A0A",
-        "overlay_opacity": 70,
-        "overlay_style": "gradient_right",
-        "section_height": "large",
-        "section_height_custom": 70,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "shorettes_category_nav": {
-      "type": "shorettes-category-nav",
-      "blocks": {
-        "catnav_1": {
-          "type": "species",
-          "settings": {
-            "icon": "musky",
-            "label": "Musky",
-            "link": "/collections/musky"
-          }
-        },
-        "catnav_2": {
-          "type": "species",
-          "settings": {
-            "icon": "bass",
-            "label": "Bass",
-            "link": "/collections/bass"
-          }
-        },
-        "catnav_3": {
-          "type": "species",
-          "settings": {
-            "icon": "walleye",
-            "label": "Walleye",
-            "link": "/collections/walleye"
-          }
-        },
-        "catnav_4": {
-          "type": "species",
-          "settings": {
-            "icon": "pike",
-            "label": "Pike",
-            "link": "/collections/pike"
-          }
-        },
-        "catnav_5": {
-          "type": "species",
-          "settings": {
-            "icon": "panfish",
-            "label": "Panfish",
-            "link": "/collections/panfish"
-          }
-        },
-        "catnav_6": {
-          "type": "species",
-          "settings": {
-            "icon": "trout",
-            "label": "Trout",
-            "link": "/collections/trout"
-          }
-        },
-        "catnav_7": {
-          "type": "category",
-          "settings": {
-            "icon": "lures",
-            "label": "Lures",
-            "link": ""
-          }
-        },
-        "catnav_8": {
-          "type": "category",
-          "settings": {
-            "icon": "rods-reels",
-            "label": "Rods & reels",
-            "link": "/collections/rods-reels-rod-racks"
-          }
-        },
-        "catnav_9": {
-          "type": "category",
-          "settings": {
-            "icon": "terminal-tackle",
-            "label": "Terminal tackle",
-            "link": "/collections/terminal-tackle"
-          }
-        },
-        "catnav_10": {
-          "type": "category",
-          "settings": {
-            "icon": "marine",
-            "label": "Marine",
-            "link": "/collections/marine-batteries-accessories"
-          }
-        },
-        "catnav_11": {
-          "type": "category",
-          "settings": {
-            "icon": "apparel",
-            "label": "Apparel",
-            "link": "/collections/apparel"
-          }
-        },
-        "catnav_12": {
-          "type": "category",
-          "settings": {
-            "icon": "kids",
-            "label": "Kids",
-            "link": "/collections/kids-zone"
-          }
-        }
-      },
-      "block_order": [
-        "catnav_1",
-        "catnav_2",
-        "catnav_3",
-        "catnav_4",
-        "catnav_5",
-        "catnav_6",
-        "catnav_7",
-        "catnav_8",
-        "catnav_9",
-        "catnav_10",
-        "catnav_11",
-        "catnav_12"
-      ],
-      "settings": {
-        "species_heading": "Shop by species",
-        "category_heading": "Shop by category",
-        "background_color": "#FFFFFF",
-        "text_color": "#0A0A0A",
-        "padding-block-start": 36,
-        "padding-block-end": 28
-      }
-    },
-    "shorettes_feature_tiles": {
-      "type": "shorettes-feature-tiles",
-      "blocks": {
-        "tile_1": {
-          "type": "tile",
-          "settings": {
-            "heading": "Shorette's\noriginals",
-            "text": "Custom lures. Built by anglers for anglers.",
-            "button_label": "Shop originals",
-            "link": "",
-            "accent": "default",
-            "overlay_opacity": 55,
-            "collection": "shorettes-originals"
-          }
-        },
-        "tile_2": {
-          "type": "tile",
-          "settings": {
-            "collection": "slime-time",
-            "heading": "Slime time",
-            "text": "Loud colors. Big attitude. Fish can't resist.",
-            "button_label": "Shop Slime Time",
-            "link": "/collections/slime-time",
-            "accent": "slime",
-            "overlay_opacity": 60
-          }
-        },
-        "tile_3": {
-          "type": "tile",
-          "settings": {
-            "heading": "Community\ncatches",
-            "text": "Real anglers. Real fish. Real stories.",
-            "button_label": "View catches",
-            "link": "/pages/community-catches",
-            "accent": "default",
-            "overlay_opacity": 55
-          }
-        },
-        "tile_4": {
-          "type": "tile",
-          "settings": {
-            "collection": "frontpage",
-            "heading": "New\narrivals",
-            "text": "The latest gear from the best brands.",
-            "button_label": "Shop new",
-            "link": "/collections/all?sort_by=created-descending",
-            "accent": "default",
-            "overlay_opacity": 55
-          }
-        },
-        "tile_5": {
-          "type": "tile",
-          "settings": {
-            "heading": "Best\nsellers",
-            "text": "Proven winners that get it done.",
-            "button_label": "Shop best sellers",
-            "link": "/collections/all?sort_by=best-selling",
-            "accent": "default",
-            "overlay_opacity": 55
-          }
-        }
-      },
-      "block_order": [
-        "tile_1",
-        "tile_2",
-        "tile_3",
-        "tile_4",
-        "tile_5"
-      ],
-      "settings": {
-        "heading": "",
-        "background_color": "#FFFFFF",
-        "tile_height": 260,
-        "gap": 12,
-        "padding-block-start": 8,
-        "padding-block-end": 40
       }
     },
     "shorettes_brand_strip": {
@@ -1143,7 +980,7 @@
         "heading": "Shop top brands",
         "view_all_label": "View all brands",
         "view_all_link": "/pages/view-all-brands",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "logo_height": 34,
         "padding-block-start": 28,
         "padding-block-end": 28
@@ -1193,10 +1030,198 @@
       ],
       "settings": {
         "heading": "",
-        "background_color": "#0A0A0A",
-        "text_color": "#FFFFFF",
+        "background_color": "#0a0a0a",
+        "text_color": "#ffffff",
         "padding-block-start": 36,
         "padding-block-end": 36
+      }
+    },
+    "hero_jVaWmY": {
+      "type": "hero",
+      "blocks": {
+        "button_RpQ9L9": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/slime-time",
+            "open_in_new_tab": false,
+            "style_class": "button-custom",
+            "custom_button_background": "rgba(0,0,0,0)",
+            "custom_button_text": "{{ settings.color_palette.color7 }}",
+            "custom_button_border": "{{ settings.color_palette.background }}",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "button_RpQ9L9"
+      ],
+      "disabled": true,
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/rn-image_picker_lib_temp_e649101d-8ed8-422b-a9ad-3edaefb10bec.png",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "space-between",
+        "vertical_alignment": "flex-end",
+        "align_baseline": true,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-end",
+        "gap": 24,
+        "section_width": "page-width",
+        "section_height": "medium",
+        "section_height_custom": 50,
+        "background_color": "{{ settings.color_palette.foreground }}",
+        "toggle_overlay": true,
+        "overlay_color": "#00000003",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 100,
+        "padding-block-end": 72
+      }
+    },
+    "1766099948839f0bac": {
+      "type": "_blocks",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.foreground }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "1766011629720e99cd": {
+      "type": "_blocks",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.background }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "17659924951d04f9a6": {
+      "type": "_blocks",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.background }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "176653759330716849": {
+      "type": "_blocks",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.background }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     }
   },

@@ -17,7 +17,7 @@
         "announcement_JxzhCk": {
           "type": "_announcement",
           "settings": {
-            "text": "Free shipping on orders over $75",
+            "text": "",
             "link": "",
             "font": "var(--font-body--family)",
             "font_size": "0.6875rem",
@@ -143,8 +143,8 @@
         "actions_font_size": "0.875rem",
         "actions_font": "body",
         "actions_text_case": "none",
-        "background_color_top": "#f8f3ed",
-        "text_color_top": "#0a0a0a",
+        "background_color_top": "{{ settings.color_palette.foreground }}",
+        "text_color_top": "{{ settings.color_palette.color8 }}",
         "background_color_bottom": "#17191a",
         "text_color_bottom": "#ffffff",
         "bubble_style": "custom",

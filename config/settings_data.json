@@ -9,8 +9,8 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/ChatGPT_Image_Dec_20_2025_11_40_24_PM.png",
-    "logo_inverse": "shopify://shop_images/ChatGPT_Image_Dec_20_2025_10_39_05_PM.png",
+    "logo": "shopify://shop_images/shorettes_logo_transparent.png",
+    "logo_inverse": "shopify://shop_images/hf_20260904_204048_e6a53dd1-1736-4d15-864f-a4bfd5dfbc0e.png",
     "logo_height": 72,
     "logo_height_mobile": 40,
     "favicon": "{{ shop.brand.logo }}",
