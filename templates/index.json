@@ -89,7 +89,7 @@
           "settings": {
             "icon": "lures",
             "label": "Lures",
-            "link": ""
+            "link": "shopify://collections/all"
           }
         },
         "catnav_8": {
@@ -187,7 +187,7 @@
           "type": "tile",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/Screenshot_2025-12-21_164410_ccd52633-2c46-43fb-86fb-8002bebc2a32.png",
+            "image": "shopify://shop_images/20200817_181540.jpg",
             "heading": "Community\ncatches",
             "text": "Real anglers. Real fish. Real stories.",
             "button_label": "View catches",
@@ -200,6 +200,7 @@
           "type": "tile",
           "settings": {
             "collection": "frontpage",
+            "image": "shopify://shop_images/Black-Bag-W-S.jpg",
             "heading": "New\narrivals",
             "text": "The latest gear from the best brands.",
             "button_label": "Shop new",
@@ -520,7 +521,6 @@
         },
         "ai_gen_block_94b69a6_688ANb": {
           "type": "ai_gen_block_94b69a6",
-          "disabled": true,
           "settings": {
             "heading": "Community Catches",
             "description": "Check out amazing catches from our fishing community",
