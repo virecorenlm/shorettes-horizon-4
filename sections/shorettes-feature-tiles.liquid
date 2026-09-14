@@ -23,7 +23,7 @@
     {%- endif -%}
 
     {%- if tiles.size > 0 -%}
-      <ul class="shorettes-tiles__grid" role="list">
+      <ul class="shorettes-tiles__grid{% if tiles.size == 6 %} shorettes-tiles__grid--six{% endif %}" role="list">
         {%- for block in tiles -%}
           {%- liquid
             assign overlay_alpha = block.settings.overlay_opacity | default: 55 | divided_by: 100.0
@@ -39,10 +39,23 @@
               endif
             endif
 
-            # An explicit link wins, otherwise fall back to the chosen collection.
+            # Use the latest article hero when no image or collection image is set.
+            if tile_image == blank and block.settings.blog != blank
+              assign tile_image = block.settings.blog.articles.first.image
+            endif
+            assign tile_image_alt = tile_image.alt | default: block.settings.heading
+            assign tile_image_sizes = '(min-width: 1100px) 22vw, (min-width: 750px) 45vw, 90vw'
+            if tiles.size == 6
+              assign tile_image_sizes = '(min-width: 1100px) 32vw, (min-width: 750px) 45vw, 90vw'
+            endif
+
+            # An explicit link wins, then the chosen collection, then the blog index.
             assign tile_link = block.settings.link
             if tile_link == blank and block.settings.collection != blank
               assign tile_link = block.settings.collection.url
+            endif
+            if tile_link == blank and block.settings.blog != blank
+              assign tile_link = block.settings.blog.url
             endif
 
             assign has_link = false
@@ -63,9 +76,9 @@
                     | image_url: width: 1400
                     | image_tag:
                       widths: '320, 480, 640, 840, 1080, 1400',
-                      sizes: '(min-width: 1100px) 22vw, (min-width: 750px) 45vw, 90vw',
+                      sizes: tile_image_sizes,
                       loading: 'lazy',
-                      alt: tile_image.alt
+                      alt: tile_image_alt
                   }}
                 {%- endif -%}
                 <span class="shorettes-tile__scrim" aria-hidden="true"></span>
@@ -227,6 +240,11 @@
       grid-template-columns: none;
     }
 
+    .shorettes-tiles__grid--six {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     /* Release the two-column orphan rule. Left in place it would pin the last tile
        to `grid-column: 1 / -1` and push it to the front of a column-flow grid. */
     .shorettes-tiles__item:last-child:nth-child(odd) {
@@ -322,10 +340,16 @@
           "info": "Supplies the tile image and link automatically when the fields below are left empty."
         },
         {
+          "type": "blog",
+          "id": "blog",
+          "label": "Blog",
+          "info": "Uses the latest article image and links to the blog when no collection or override is set."
+        },
+        {
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "Optional. Overrides the collection image."
+          "info": "Optional. Overrides the collection or blog image."
         },
         {
           "type": "textarea",
@@ -347,7 +371,7 @@
           "type": "url",
           "id": "link",
           "label": "Link",
-          "info": "Optional. Overrides the collection link."
+          "info": "Optional. Overrides the collection or blog link."
         },
         {
           "type": "select",
