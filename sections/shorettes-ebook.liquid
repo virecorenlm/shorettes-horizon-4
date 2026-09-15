@@ -1,0 +1,44 @@
+{%- assign ebook = section.settings.product -%}
+{%- if ebook != blank -%}
+<section class="shorettes-ebook" aria-labelledby="ebook-title-{{ section.id }}">
+  <div class="shorettes-container shorettes-ebook__layout">
+    <a class="shorettes-ebook__cover" href="{{ ebook.url }}" aria-label="{{ ebook.title | escape }}">
+      {%- if ebook.featured_image != blank -%}
+        {{ ebook.featured_image | image_url: width: 720 | image_tag: widths: '240, 360, 540, 720', sizes: '(min-width: 750px) 280px, 200px', loading: 'lazy', alt: ebook.title }}
+      {%- endif -%}
+    </a>
+    <div class="shorettes-ebook__copy">
+      <p class="shorettes-ebook__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2 id="ebook-title-{{ section.id }}">{{ ebook.title | escape }}</h2>
+      <p class="shorettes-ebook__description">{{ section.settings.description | escape }}</p>
+      <p class="shorettes-ebook__price">{{ ebook.price | money }} <span>Digital ebook</span></p>
+      <a class="shorettes-btn shorettes-btn--primary" href="{{ ebook.url }}">{{ section.settings.button_label | escape }}</a>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% stylesheet %}
+.shorettes-ebook { background: #17191a; color: #fff; padding: 40px 0; }
+.shorettes-ebook__layout { display: grid; grid-template-columns: minmax(0,280px) minmax(0,1fr); gap: clamp(24px,5vw,72px); align-items: center; max-width: 1100px; }
+.shorettes-ebook__cover { display: block; text-align: center; }
+.shorettes-ebook__cover img { display: block; width: 100%; max-height: 350px; height: auto; object-fit: contain; }
+.shorettes-ebook__eyebrow { margin: 0 0 12px; color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.shorettes-ebook__copy h2 { color: #fff; font-size: clamp(1.6rem,3vw,2.5rem); line-height: 1.15; margin: 0 0 16px; text-wrap: balance; }
+.shorettes-ebook__description { color: #e0e0e0; line-height: 1.6; max-width: 55ch; margin: 0 0 20px; }
+.shorettes-ebook__price { font-size: 1.4rem; font-weight: 700; margin: 0 0 20px; }
+.shorettes-ebook__price span { font-size: .9rem; font-weight: 400; margin-left: 12px; color: #e0e0e0; }
+.shorettes-ebook a:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+@media(max-width:749px) { .shorettes-ebook__layout { grid-template-columns: minmax(0,1fr); gap: 24px; } .shorettes-ebook__cover { max-width: 200px; margin-inline: auto; } .shorettes-ebook__copy { text-align: center; } }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Shorette's ebook",
+  "settings": [
+    {"type":"product","id":"product","label":"Ebook product"},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"The Shorette's fishing library"},
+    {"type":"text","id":"description","label":"Description","default":"Planning your next musky trip? Explore our guide to hunting giants on the St. Lawrence River."},
+    {"type":"text","id":"button_label","label":"Button label","default":"Get the ebook"}
+  ],
+  "presets": [{"name":"Shorette's ebook"}]
+}
+{% endschema %}

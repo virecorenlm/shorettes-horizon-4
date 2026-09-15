@@ -1232,11 +1232,21 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "shorettes_ebook": {
+      "type": "shorettes-ebook",
+      "settings": {
+        "product": "st-lawrence-musky-ebook",
+        "eyebrow": "The Shorette's fishing library",
+        "description": "Planning your next musky trip? Explore our guide to hunting giants on the St. Lawrence River.",
+        "button_label": "Get the ebook"
+      }
     }
   },
   "order": [
     "shorettes_hero",
     "shorettes_category_nav",
+    "shorettes_ebook",
     "shorettes_feature_tiles",
     "product_list_fa6P9H",
     "176598765768890489",
