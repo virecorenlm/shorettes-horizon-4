@@ -45,7 +45,7 @@
         "announcement_region": {
           "type": "_announcement",
           "settings": {
-            "text": "Proudly serving St. Lawrence country",
+            "text": "Proudly serving St. Lawrence County",
             "link": "",
             "font": "var(--font-body--family)",
             "font_size": "0.6875rem",
